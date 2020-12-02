@@ -2,12 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { config } from 'dotenv';
 import reportWebVitals from './reportWebVitals';
 
 import store from './store';
 import { Routes } from './routes';
 
 import 'bootstrap/dist/css/bootstrap.css';
+
+config();
 
 const render = () => {
   ReactDOM.render(
