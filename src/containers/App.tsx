@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 
 import { getUsersStart } from '../slices/users';
 import { Header } from '../components/Header';
+import { Layout } from '../components/Layout';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,9 @@ const App: React.FC = () => {
   return (
     <>
       <Header links={[{ name: 'Home', route: '/' }]} />
-      <Button onClick={onLoadUsersClick}>Button</Button>
+      <Layout>
+        <Button onClick={onLoadUsersClick}>Button</Button>
+      </Layout>
     </>
   );
 };
