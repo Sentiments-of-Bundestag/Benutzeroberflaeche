@@ -21,3 +21,10 @@ export interface FactionMessage {
   sentiment: number;
   to: string;
 }
+
+export interface Person {
+  name: string;
+  rank: number;
+  role: string;
+  speakerId: string;
+}
