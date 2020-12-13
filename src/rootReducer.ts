@@ -2,7 +2,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 
 import userReducer from './slices/users';
 import factionReducer from './slices/factions';
-import personReducer from './slices/person';
+import personReducer from './slices/persons';
 
 const combinedReducers = combineReducers({
   users: userReducer,
