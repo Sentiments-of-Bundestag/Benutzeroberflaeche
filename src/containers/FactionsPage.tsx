@@ -6,7 +6,7 @@ import { getFactionsStart, getFactionMessagesStart } from '../slices/factions';
 import { getAllFactions } from '../selectors/factions';
 import { Layout } from '../components/Layout';
 
-const App: React.FC = () => {
+const FactionsPage: React.FC = () => {
   const dispatch = useDispatch();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {
@@ -44,4 +44,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default FactionsPage;
