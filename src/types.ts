@@ -28,3 +28,10 @@ export interface Person {
   role: string;
   speakerId: string;
 }
+
+export interface PersonGraph {
+  sender: string;
+  recipient: string;
+  sentiment: number;
+  count: number;
+}
