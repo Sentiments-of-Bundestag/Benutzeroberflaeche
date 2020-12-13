@@ -11,7 +11,13 @@ export interface NavigationLinkInterface {
 }
 
 // Sentiment
-export interface Fraction {
+export interface Faction {
   name: string;
   size: number;
+}
+
+export interface FactionMessage {
+  from: string;
+  sentiment: 0;
+  to: string;
 }
