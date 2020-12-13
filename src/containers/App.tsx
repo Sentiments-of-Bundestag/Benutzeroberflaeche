@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import { getFactionsStart, getFactionMessagesStart } from '../slices/factions';
 import { getAllFactions } from '../selectors/factions';
-import { Header } from '../components/Header';
 import { Layout } from '../components/Layout';
 
 const App: React.FC = () => {
@@ -30,7 +29,6 @@ const App: React.FC = () => {
 
   return (
     <>
-      <Header links={[{ name: 'Home', route: '/' }]} />
       <Layout>
         <Button onClick={onLoadFactionsClick}>Reload</Button>
         {factions.map((faction, index) => (
