@@ -38,7 +38,7 @@ const factionSlice = createSlice({
     getFactionMessagesStart(state) {
       state.areFactionsMessagesLoading = true;
       state.error = undefined;
-      state.factions = [];
+      state.factionMessages = [];
     },
     getFactionMessagesSuccess(
       state,
