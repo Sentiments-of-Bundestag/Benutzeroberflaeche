@@ -12,7 +12,9 @@ export const Header: React.FC<HeaderProps> = ({ links }) => {
   const history = useHistory();
   return (
     <Navbar expand="lg" bg="light" variant="light">
-      <Navbar.Brand onClick={() => history.push('/')}>Navbar</Navbar.Brand>
+      <Navbar.Brand onClick={() => history.push('/')}>
+        Bundestag Analytics
+      </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse>
         <Nav className="mr-auto">
