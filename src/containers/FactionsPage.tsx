@@ -34,9 +34,9 @@ const FactionsPage: React.FC = () => {
         {factions.map((faction, index) => (
           <p key={index.toString()}>{faction.name}</p>
         ))}
-        {factionMessages.map((faction, index) => (
+        {factionMessages.map((factionMessage, index) => (
           <p key={index.toString()}>
-            {`${faction.from} to ${faction.to} with ${faction.sentiment}`}
+            {`${factionMessage.from} to ${factionMessage.to} with ${factionMessage.sentiment}`}
           </p>
         ))}
       </Layout>
