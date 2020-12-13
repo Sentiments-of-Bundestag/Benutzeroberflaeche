@@ -1,6 +1,17 @@
 {
   "name": "frontend_sentiment",
   "version": "0.1.0",
+  "author": {
+    "name": "Tilman Möller",
+    "email": "moeller.tilman@gmail.com",
+    "url": "https://abteilung6.com"
+  },
+  "homepage": "https://abteilung6.com",
+  "license": "MIT",
+  "keywords": [
+    "bundestag analytics",
+    "frontend"
+  ],
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
