@@ -1,16 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Person } from '../types';
+import { Person, PersonGraph } from '../types';
 
 interface PersonsState {
   persons: Person[];
+  personGraphs: PersonGraph[];
   arePersonsLoading: boolean;
+  arePersonGraphsLoading: boolean;
   error?: string;
 }
 
 export const initialState: PersonsState = {
   persons: [],
+  personGraphs: [],
   arePersonsLoading: false,
+  arePersonGraphsLoading: false,
 };
 
 const personSlice = createSlice({
@@ -31,6 +35,20 @@ const personSlice = createSlice({
       state.persons = [];
       state.arePersonsLoading = false;
     },
+    getPersonGraphsStart(state) {
+      state.arePersonGraphsLoading = true;
+      state.error = undefined;
+      state.personGraphs = [];
+    },
+    getPersonGraphsSuccess(state, { payload }: PayloadAction<PersonGraph[]>) {
+      state.personGraphs = payload;
+      state.arePersonGraphsLoading = false;
+    },
+    getPersonGraphsFailed(state, action: PayloadAction<string>) {
+      state.error = action.payload;
+      state.personGraphs = [];
+      state.arePersonGraphsLoading = false;
+    },
   },
 });
 
@@ -38,6 +56,9 @@ export const {
   getPersonsStart,
   getPersonsSuccess,
   getPersonsFailed,
+  getPersonGraphsStart,
+  getPersonGraphsSuccess,
+  getPersonGraphsFailed,
 } = personSlice.actions;
 
 export default personSlice.reducer;
