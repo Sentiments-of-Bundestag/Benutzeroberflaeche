@@ -1,24 +1,24 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { Faction, FactionMessage } from '../types';
+import { Faction, FactionGraph } from '../types';
 
 import { request } from '../utils/client';
 import {
   getFactionsStart,
   getFactionsSuccess,
   getFactionsFailed,
-  getFactionMessagesStart,
-  getFactionMessagesSuccess,
-  getFactionMessagesFailed,
+  getFactionGraphsStart,
+  getFactionGraphsSuccess,
+  getFactionGraphsFailed,
 } from '../slices/factions';
 
 const {
   REACT_APP_ENDPOINT_FACTIONS,
-  REACT_APP_ENDPOINT_FACTION_MESSAGES,
+  REACT_APP_ENDPOINT_FACTION_GRAPHS,
 } = process.env;
 
 const apiFactionsUrl = REACT_APP_ENDPOINT_FACTIONS || '';
-const apiFactionMessagesUrl = REACT_APP_ENDPOINT_FACTION_MESSAGES || '';
+const apiFactionGraphsUrl = REACT_APP_ENDPOINT_FACTION_GRAPHS || '';
 
 function* handleGetFactions() {
   try {
@@ -29,21 +29,21 @@ function* handleGetFactions() {
   }
 }
 
-function* handleGetFactionMessages() {
+function* handleGetFactionGraphs() {
   try {
-    const response = yield call(request, apiFactionMessagesUrl);
+    const response = yield call(request, apiFactionGraphsUrl);
     if (Object.prototype.hasOwnProperty.call(response, 'messages')) {
-      const factionMessages: FactionMessage[] = response.messages;
-      yield put(getFactionMessagesSuccess(factionMessages));
+      const factionGraphs: FactionGraph[] = response.messages;
+      yield put(getFactionGraphsSuccess(factionGraphs));
     } else {
-      yield put(getFactionMessagesFailed('Response has no property messages'));
+      yield put(getFactionGraphsFailed('Response has no property messages'));
     }
   } catch (error) {
-    yield put(getFactionMessagesFailed(error.toString()));
+    yield put(getFactionGraphsFailed(error.toString()));
   }
 }
 
 export function* factionsSaga() {
   yield takeEvery(getFactionsStart.type, handleGetFactions);
-  yield takeEvery(getFactionMessagesStart.type, handleGetFactionMessages);
+  yield takeEvery(getFactionGraphsStart.type, handleGetFactionGraphs);
 }

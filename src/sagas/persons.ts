@@ -14,11 +14,11 @@ import {
 
 const {
   REACT_APP_ENDPOINT_PERSONS,
-  REACT_APP_ENDPOINT_PERSON_GRAPH,
+  REACT_APP_ENDPOINT_PERSON_GRAPHS,
 } = process.env;
 
 const apiPersonsUrls = REACT_APP_ENDPOINT_PERSONS || '';
-const apiPersonGraphsUrls = REACT_APP_ENDPOINT_PERSON_GRAPH || '';
+const apiPersonGraphsUrls = REACT_APP_ENDPOINT_PERSON_GRAPHS || '';
 
 function* handleGetPersons() {
   try {

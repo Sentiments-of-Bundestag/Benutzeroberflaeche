@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import { getFactionsStart, getFactionMessagesStart } from '../slices/factions';
+import { getFactionsStart, getFactionGraphsStart } from '../slices/factions';
 import { getAllFactions } from '../selectors/factions';
 import { Layout } from '../components/Layout';
 
@@ -11,20 +11,20 @@ const FactionsPage: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {
     factions,
-    areMessagesLoading,
-    factionMessages,
-    areFactionsMessagesLoading,
+    areFactionsLoading,
+    factionGraphs,
+    areFactionGraphsLoading,
     error,
   } = useSelector(getAllFactions);
 
   useEffect(() => {
     dispatch(getFactionsStart());
-    dispatch(getFactionMessagesStart());
+    dispatch(getFactionGraphsStart());
   }, [dispatch]);
 
   const onLoadFactionsClick = () => {
     dispatch(getFactionsStart());
-    dispatch(getFactionMessagesStart());
+    dispatch(getFactionGraphsStart());
   };
 
   return (
@@ -34,9 +34,9 @@ const FactionsPage: React.FC = () => {
         {factions.map((faction, index) => (
           <p key={index.toString()}>{faction.name}</p>
         ))}
-        {factionMessages.map((factionMessage, index) => (
+        {factionGraphs.map((factionGraph, index) => (
           <p key={index.toString()}>
-            {`${factionMessage.from} to ${factionMessage.to} with ${factionMessage.sentiment}`}
+            {`${factionGraph.from} to ${factionGraph.to} with ${factionGraph.sentiment}`}
           </p>
         ))}
       </Layout>

@@ -1,20 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Faction, FactionMessage } from '../types';
+import { Faction, FactionGraph } from '../types';
 
 interface FactionState {
   factions: Faction[];
-  factionMessages: FactionMessage[];
-  areMessagesLoading: boolean;
-  areFactionsMessagesLoading: boolean;
+  factionGraphs: FactionGraph[];
+  areFactionsLoading: boolean;
+  areFactionGraphsLoading: boolean;
   error?: string;
 }
 
 export const initialState: FactionState = {
   factions: [],
-  factionMessages: [],
-  areMessagesLoading: false,
-  areFactionsMessagesLoading: false,
+  factionGraphs: [],
+  areFactionsLoading: false,
+  areFactionGraphsLoading: false,
 };
 
 const factionSlice = createSlice({
@@ -22,35 +22,32 @@ const factionSlice = createSlice({
   initialState,
   reducers: {
     getFactionsStart(state) {
-      state.areMessagesLoading = true;
+      state.areFactionsLoading = true;
       state.error = undefined;
       state.factions = [];
     },
     getFactionsSuccess(state, { payload }: PayloadAction<Faction[]>) {
       state.factions = payload;
-      state.areMessagesLoading = false;
+      state.areFactionsLoading = false;
     },
     getFactionsFailed(state, action: PayloadAction<string>) {
       state.error = action.payload;
       state.factions = [];
-      state.areMessagesLoading = false;
+      state.areFactionsLoading = false;
     },
-    getFactionMessagesStart(state) {
-      state.areFactionsMessagesLoading = true;
+    getFactionGraphsStart(state) {
+      state.areFactionGraphsLoading = true;
       state.error = undefined;
-      state.factionMessages = [];
+      state.factionGraphs = [];
     },
-    getFactionMessagesSuccess(
-      state,
-      { payload }: PayloadAction<FactionMessage[]>,
-    ) {
-      state.factionMessages = payload;
-      state.areFactionsMessagesLoading = false;
+    getFactionGraphsSuccess(state, { payload }: PayloadAction<FactionGraph[]>) {
+      state.factionGraphs = payload;
+      state.areFactionGraphsLoading = false;
     },
-    getFactionMessagesFailed(state, action: PayloadAction<string>) {
+    getFactionGraphsFailed(state, action: PayloadAction<string>) {
       state.error = action.payload;
-      state.factionMessages = [];
-      state.areFactionsMessagesLoading = false;
+      state.factionGraphs = [];
+      state.areFactionGraphsLoading = false;
     },
   },
 });
@@ -59,9 +56,9 @@ export const {
   getFactionsStart,
   getFactionsSuccess,
   getFactionsFailed,
-  getFactionMessagesStart,
-  getFactionMessagesSuccess,
-  getFactionMessagesFailed,
+  getFactionGraphsStart,
+  getFactionGraphsSuccess,
+  getFactionGraphsFailed,
 } = factionSlice.actions;
 
 export default factionSlice.reducer;

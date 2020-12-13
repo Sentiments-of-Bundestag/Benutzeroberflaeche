@@ -16,7 +16,7 @@ export interface Faction {
   size: number;
 }
 
-export interface FactionMessage {
+export interface FactionGraph {
   from: string;
   sentiment: number;
   to: string;
