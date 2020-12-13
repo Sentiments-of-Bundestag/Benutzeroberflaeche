@@ -10,7 +10,12 @@ export interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
-      <Header links={[{ name: 'Partein', route: '/factions' }]} />
+      <Header
+        links={[
+          { name: 'Partein', route: '/factions' },
+          { name: 'Abgeordnete', route: '/persons' },
+        ]}
+      />
       <Container>{children}</Container>
     </>
   );
