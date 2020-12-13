@@ -18,6 +18,6 @@ export interface Faction {
 
 export interface FactionMessage {
   from: string;
-  sentiment: 0;
+  sentiment: number;
   to: string;
 }
