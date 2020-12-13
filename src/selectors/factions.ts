@@ -5,7 +5,7 @@ import { initialState } from '../slices/factions';
 
 const factionsDomain = (state: AppState) => state.factions || initialState;
 
-export const getAllUsers = createSelector(
+export const getAllFactions = createSelector(
   [factionsDomain],
   (factionsState) => factionsState,
 );
