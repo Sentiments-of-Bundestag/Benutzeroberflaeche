@@ -12,7 +12,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     <>
       <Header
         links={[
-          { name: 'Partein', route: '/factions' },
+          { name: 'Parteien', route: '/factions' },
           { name: 'Abgeordnete', route: '/persons' },
         ]}
       />
