@@ -9,3 +9,9 @@ export interface NavigationLinkInterface {
   name: string;
   route: string;
 }
+
+// Sentiment
+export interface Fraction {
+  name: string;
+  size: number;
+}
