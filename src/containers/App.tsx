@@ -2,32 +2,31 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
-
-import { getUsersStart } from '../slices/users';
-import { getAllUsers } from '../selectors/users';
+import { getFactionsStart } from '../slices/factions';
+import { getAllFactions } from '../selectors/factions';
 import { Header } from '../components/Header';
 import { Layout } from '../components/Layout';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { users, isLoading, error } = useSelector(getAllUsers);
+  const { factions, isLoading, error } = useSelector(getAllFactions);
 
   useEffect(() => {
-    dispatch(getUsersStart());
+    dispatch(getFactionsStart());
   }, [dispatch]);
 
-  const onLoadUsersClick = () => {
-    dispatch(getUsersStart());
+  const onLoadFactionsClick = () => {
+    dispatch(getFactionsStart());
   };
 
   return (
     <>
       <Header links={[{ name: 'Home', route: '/' }]} />
       <Layout>
-        <Button onClick={onLoadUsersClick}>Reload</Button>
-        {users.map((user, index) => (
-          <p key={index.toString()}>{user.name}</p>
+        <Button onClick={onLoadFactionsClick}>Reload</Button>
+        {factions.map((faction, index) => (
+          <p key={index.toString()}>{faction.name}</p>
         ))}
       </Layout>
     </>
