@@ -48,6 +48,26 @@ export const HeatMap: React.FC<HeatMapProps> = ({ factionGraphs }) => {
         },
       },
     },
+    yaxis: {
+      labels: {
+        formatter(y: string) {
+          if (y === 'BÜNDNIS 90/DIE GRÜNEN') {
+            return 'DIE GRÜNEN';
+          }
+          return y;
+        },
+      },
+    },
+    xaxis: {
+      labels: {
+        formatter(y: string) {
+          if (y === 'BÜNDNIS 90/DIE GRÜNEN') {
+            return 'DIE GRÜNEN';
+          }
+          return y;
+        },
+      },
+    },
   };
 
   const series = createApexSeries(factionGraphs);
