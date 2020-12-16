@@ -28,6 +28,14 @@ export const Header: React.FC<HeaderProps> = ({ links }) => {
               </Nav.Link>
             ))}
         </Nav>
+        <Nav>
+          <Nav.Link href="https://www.htw-berlin.de/impressum/">
+            Impressum
+          </Nav.Link>
+          <Nav.Link href="https://www.htw-berlin.de/datenschutz/">
+            Datenschutzerlärung
+          </Nav.Link>
+        </Nav>
       </Navbar.Collapse>
     </Navbar>
   );
