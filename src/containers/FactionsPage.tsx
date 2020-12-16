@@ -22,7 +22,7 @@ const FactionsPage: React.FC = () => {
       <Layout>
         <br />
         <h2 style={{ textAlign: 'center' }}>
-          Beziehungen der Parteien nach Sentiments{' '}
+          Verhalten der Parteien nach Sentiments{' '}
           <Badge variant="secondary">Example</Badge>
         </h2>
         <br />
