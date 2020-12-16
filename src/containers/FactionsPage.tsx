@@ -5,6 +5,7 @@ import { Badge } from 'react-bootstrap';
 import { getFactionsStart, getFactionGraphsStart } from '../slices/factions';
 import { getAllFactions } from '../selectors/factions';
 import { HeatMap } from '../components/HeatMap';
+import { FactionNavigation } from '../components/FactionNavigation';
 import { Layout } from '../components/Layout';
 
 const FactionsPage: React.FC = () => {
@@ -22,10 +23,18 @@ const FactionsPage: React.FC = () => {
         <br />
         <h2 style={{ textAlign: 'center' }}>
           Beziehungen der Parteien nach Sentiments{' '}
-          <Badge variant="secondary">New</Badge>
+          <Badge variant="secondary">Example</Badge>
         </h2>
         <br />
         <HeatMap factionGraphs={factionGraphs} />
+        <br />
+        <hr />
+        <h2 style={{ textAlign: 'center' }}>
+          Parteien im Detail <Badge variant="secondary">Example</Badge>
+        </h2>
+        <br />
+        <FactionNavigation />
+        <br />
       </Layout>
     </>
   );
