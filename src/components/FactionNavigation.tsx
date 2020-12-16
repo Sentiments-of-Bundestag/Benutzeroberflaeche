@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button, Col, Figure, Row } from 'react-bootstrap';
 
 import SPD_LOGO from '../assets/spd_logo.png';
@@ -10,11 +11,15 @@ import CDU_CSU_LOGO from '../assets/cdu_csu_logo.png';
 
 export interface FactionNavigationProps {}
 
-export const FactionNavigation: React.FC<FactionNavigationProps> = ({}) => {
+export const FactionNavigation: React.FC<FactionNavigationProps> = () => {
+  const history = useHistory();
   return (
     <Row>
       <Col xs={6} md={3}>
-        <Button variant="outline-light">
+        <Button
+          variant="outline-light"
+          onClick={() => history.push('/factions/1')}
+        >
           <Figure>
             <Figure.Image width="150" thumbnail alt="SPD" src={SPD_LOGO} />
           </Figure>
