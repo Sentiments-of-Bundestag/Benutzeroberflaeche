@@ -22,19 +22,15 @@ const FactionsPage: React.FC = () => {
       <Layout>
         <br />
         <h2 style={{ textAlign: 'center' }}>
-          Verhalten der Parteien nach Sentiments{' '}
-          <Badge variant="secondary">Example</Badge>
-        </h2>
-        <br />
-        <HeatMap factionGraphs={factionGraphs} />
-        <br />
-        <hr />
-        <h2 style={{ textAlign: 'center' }}>
-          Parteien im Detail <Badge variant="secondary">Example</Badge>
+          Wählen eine Partei{' '}
+          <Badge pill variant="light">
+            Example
+          </Badge>
         </h2>
         <br />
         <FactionNavigation />
         <br />
+        <hr />
       </Layout>
     </>
   );
