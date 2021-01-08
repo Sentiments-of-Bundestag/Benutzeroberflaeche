@@ -1,20 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Faction, FactionGraph } from '../types';
+import { Faction, FactionGraph, FactionRanked } from '../types';
 
 interface FactionState {
   factions: Faction[];
   factionGraphs: FactionGraph[];
+  factionRanks: FactionRanked[];
   areFactionsLoading: boolean;
   areFactionGraphsLoading: boolean;
+  areFactionRanksLoading: boolean;
   error?: string;
 }
 
 export const initialState: FactionState = {
   factions: [],
   factionGraphs: [],
+  factionRanks: [],
   areFactionsLoading: false,
   areFactionGraphsLoading: false,
+  areFactionRanksLoading: false,
 };
 
 const factionSlice = createSlice({
@@ -49,6 +53,20 @@ const factionSlice = createSlice({
       state.factionGraphs = [];
       state.areFactionGraphsLoading = false;
     },
+    getFactionRanksStart(state) {
+      state.areFactionRanksLoading = true;
+      state.error = undefined;
+      state.factionRanks = [];
+    },
+    getFactionRanksSuccess(state, { payload }: PayloadAction<FactionRanked[]>) {
+      state.factionRanks = payload;
+      state.areFactionRanksLoading = false;
+    },
+    getFactionRanksFailed(state, action: PayloadAction<string>) {
+      state.error = action.payload;
+      state.factionRanks = [];
+      state.areFactionRanksLoading = false;
+    },
   },
 });
 
@@ -59,6 +77,9 @@ export const {
   getFactionGraphsStart,
   getFactionGraphsSuccess,
   getFactionGraphsFailed,
+  getFactionRanksStart,
+  getFactionRanksSuccess,
+  getFactionRanksFailed,
 } = factionSlice.actions;
 
 export default factionSlice.reducer;

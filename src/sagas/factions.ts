@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
-import { Faction, FactionGraph } from '../types';
+import { Faction, FactionGraph, FactionRanked } from '../types';
 
 import { request } from '../utils/client';
 import {
@@ -10,15 +10,21 @@ import {
   getFactionGraphsStart,
   getFactionGraphsSuccess,
   getFactionGraphsFailed,
+  getFactionRanksStart,
+  getFactionRanksSuccess,
+  getFactionRanksFailed,
 } from '../slices/factions';
 
 const {
   REACT_APP_ENDPOINT_FACTIONS,
   REACT_APP_ENDPOINT_FACTION_GRAPHS,
+  REACT_APP_ENDPOINT_PERSON_RANKS,
+  REACT_APP_ENDPOINT_FACTION_RANKS,
 } = process.env;
 
 const apiFactionsUrl = REACT_APP_ENDPOINT_FACTIONS || '';
 const apiFactionGraphsUrl = REACT_APP_ENDPOINT_FACTION_GRAPHS || '';
+const apiFactionRanksUrl = REACT_APP_ENDPOINT_FACTION_RANKS || '';
 
 function* handleGetFactions() {
   try {
@@ -43,7 +49,17 @@ function* handleGetFactionGraphs() {
   }
 }
 
+function* handleGetFactionRanks() {
+  try {
+    const factions: FactionRanked[] = yield call(request, apiFactionRanksUrl);
+    yield put(getFactionRanksSuccess(factions));
+  } catch (error) {
+    yield put(getFactionRanksFailed(error.toString()));
+  }
+}
+
 export function* factionsSaga() {
   yield takeEvery(getFactionsStart.type, handleGetFactions);
   yield takeEvery(getFactionGraphsStart.type, handleGetFactionGraphs);
+  yield takeEvery(getFactionRanksStart.type, handleGetFactionRanks);
 }
