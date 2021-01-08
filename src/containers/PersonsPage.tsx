@@ -8,6 +8,7 @@ import {
   getPersonMessagesStart,
   getPersonRanksStart,
 } from '../slices/persons';
+import { getSessionsStart } from '../slices/sessions';
 import { getAllPersons } from '../selectors/persons';
 import { Layout } from '../components/Layout';
 
@@ -27,6 +28,7 @@ const PersonsPage: React.FC = () => {
     dispatch(getPersonGraphsStart());
     dispatch(getPersonMessagesStart());
     dispatch(getPersonRanksStart());
+    dispatch(getSessionsStart());
   }, [dispatch]);
 
   const onLoadPersonsClick = () => {
@@ -34,6 +36,7 @@ const PersonsPage: React.FC = () => {
     dispatch(getPersonGraphsStart());
     dispatch(getPersonMessagesStart());
     dispatch(getPersonRanksStart());
+    dispatch(getSessionsStart());
   };
 
   return (

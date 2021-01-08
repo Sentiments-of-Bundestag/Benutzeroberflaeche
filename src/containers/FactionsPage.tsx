@@ -6,6 +6,7 @@ import {
   getFactionGraphsStart,
   getFactionRanksStart,
 } from '../slices/factions';
+import { getSessionsStart } from '../slices/sessions';
 import { getAllFactions } from '../selectors/factions';
 import { Layout } from '../components/Layout';
 
@@ -17,6 +18,7 @@ const FactionsPage: React.FC = () => {
     dispatch(getFactionsStart());
     dispatch(getFactionGraphsStart());
     dispatch(getFactionRanksStart());
+    dispatch(getSessionsStart());
   }, [dispatch]);
 
   return (
