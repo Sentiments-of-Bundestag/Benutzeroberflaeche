@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 
 import { Badge } from 'react-bootstrap';
 import { Layout } from '../components/Layout';
-import { ColumnNegativesChart } from '../components/ColumnNegativesChart';
 
 interface RouteParams {
   id: string;
@@ -21,8 +20,6 @@ const FactionDetailPage: React.FC = () => {
           Verhalten der Partei gegenüber anderen Parteien{' '}
           <Badge variant="secondary">Example</Badge>
         </h2>
-        <br />
-        <ColumnNegativesChart factionGraphs={[]} />
       </Layout>
     </>
   );

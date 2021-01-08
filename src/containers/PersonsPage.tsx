@@ -2,7 +2,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import { getPersonsStart, getPersonGraphsStart } from '../slices/persons';
+import {
+  getPersonsStart,
+  getPersonGraphsStart,
+  getPersonMessagesStart,
+  getPersonRanksStart,
+} from '../slices/persons';
 import { getAllPersons } from '../selectors/persons';
 import { Layout } from '../components/Layout';
 
@@ -20,11 +25,15 @@ const PersonsPage: React.FC = () => {
   useEffect(() => {
     dispatch(getPersonsStart());
     dispatch(getPersonGraphsStart());
+    dispatch(getPersonMessagesStart());
+    dispatch(getPersonRanksStart());
   }, [dispatch]);
 
   const onLoadPersonsClick = () => {
     dispatch(getPersonsStart());
     dispatch(getPersonGraphsStart());
+    dispatch(getPersonMessagesStart());
+    dispatch(getPersonRanksStart());
   };
 
   return (
@@ -32,7 +41,9 @@ const PersonsPage: React.FC = () => {
       <Layout>
         <Button onClick={onLoadPersonsClick}>Reload</Button>
         {persons.map((person, index) => (
-          <p key={index.toString()}>{`${person.name} ranked ${person.rank}`}</p>
+          <p key={index.toString()}>
+            {`${person.name} ranked ${person.faction}`}
+          </p>
         ))}
         {personGraphs.map((personGraph, index) => (
           <p key={index.toString()}>

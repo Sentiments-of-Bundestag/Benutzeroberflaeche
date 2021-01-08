@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Badge } from 'react-bootstrap';
 import { getFactionsStart, getFactionGraphsStart } from '../slices/factions';
 import { getAllFactions } from '../selectors/factions';
-import { HeatMap } from '../components/HeatMap';
 import { FactionNavigation } from '../components/FactionNavigation';
 import { Layout } from '../components/Layout';
 
