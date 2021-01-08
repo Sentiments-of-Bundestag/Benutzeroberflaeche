@@ -10,9 +10,8 @@ export interface NavigationLinkInterface {
   route: string;
 }
 
-// Sentiment
+// Sentiment Backend
 
-// Completly Missing
 export interface Session {
   sessionId: number;
   legislativePeriod: number;
@@ -21,68 +20,58 @@ export interface Session {
 }
 
 export interface Faction {
-  // Missing
   factionId: string;
-  // Missing
-  sessionId: number;
   name: string;
   size: number;
+  // ensure to add it manually
+  legislativePeriod: number;
 }
 
 export interface FactionGraph {
   recipient: string;
-  // Missing
-  sessionId: number;
   sender: string;
   sentiment: number;
-  // Missing
   count: number;
+  sessionId: number[];
 }
 
 export interface FactionRanked {
-  // Missing
   factionId: string;
-  // Missing
-  sessionId: string;
   name: string;
   size: number;
   rank: number;
+  sessionId: number[];
 }
 
 export interface Person {
-  speakerId: string;
-  // Missing
-  sessionId: number;
+  faction: string;
+  factionId: string;
   name: string;
-  rank: number;
   role: string;
+  speakerId: string;
 }
 
-// Completly missing
 export interface PersonMessage {
-  // Missing
-  sessionId: number;
   sender: string;
   recipient: string;
   sentiment: number;
+  sessionId: number;
 }
 
-// Completly missing
 export interface PersonGraph {
-  // missing
-  sessionId: number;
   sender: string;
   recipient: string;
   sentiment: number;
   count: number;
+  sessionId: number[];
 }
 
 export interface PersonRanked {
-  speakerId: number;
-  // missing
   factionId: string;
   faction: string;
   name: string;
   role: string;
   rank: number;
+  speakerId: string;
+  sessionId: number[];
 }
