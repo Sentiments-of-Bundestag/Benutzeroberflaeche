@@ -15,13 +15,9 @@ import { Layout } from '../components/Layout';
 const PersonsPage: React.FC = () => {
   const dispatch = useDispatch();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const {
-    persons,
-    arePersonsLoading,
-    personGraphs,
-    arePersonGraphsLoading,
-    error,
-  } = useSelector(getAllPersons);
+  const { persons, personGraphs, personMessages, personRanks } = useSelector(
+    getAllPersons,
+  );
 
   useEffect(() => {
     dispatch(getPersonsStart());
@@ -31,28 +27,17 @@ const PersonsPage: React.FC = () => {
     dispatch(getSessionsStart());
   }, [dispatch]);
 
-  const onLoadPersonsClick = () => {
-    dispatch(getPersonsStart());
-    dispatch(getPersonGraphsStart());
-    dispatch(getPersonMessagesStart());
-    dispatch(getPersonRanksStart());
-    dispatch(getSessionsStart());
-  };
-
   return (
     <>
       <Layout>
-        <Button onClick={onLoadPersonsClick}>Reload</Button>
-        {persons.map((person, index) => (
-          <p key={index.toString()}>
-            {`${person.name} ranked ${person.faction}`}
-          </p>
-        ))}
-        {personGraphs.map((personGraph, index) => (
-          <p key={index.toString()}>
-            {`${personGraph.sender} to ${personGraph.recipient} with ${personGraph.sentiment}`}
-          </p>
-        ))}
+        <br />
+        {`Person count: ${persons.length}`}
+        <br />
+        {`Person graphs count: ${personGraphs.length}`}
+        <br />
+        {`Person messages count: ${personMessages.length}`}
+        <br />
+        {`Person ranks count: ${personRanks.length}`}
       </Layout>
     </>
   );

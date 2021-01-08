@@ -12,7 +12,7 @@ import { Layout } from '../components/Layout';
 
 const FactionsPage: React.FC = () => {
   const dispatch = useDispatch();
-  const { factionGraphs } = useSelector(getAllFactions);
+  const { factions, factionGraphs, factionRanks } = useSelector(getAllFactions);
 
   useEffect(() => {
     dispatch(getFactionsStart());
@@ -25,6 +25,11 @@ const FactionsPage: React.FC = () => {
     <>
       <Layout>
         <br />
+        {`Faction count: ${factions.length}`}
+        <br />
+        {`Faction graphs count: ${factionGraphs.length}`}
+        <br />
+        {`Faction ranks count: ${factionRanks.length}`}
       </Layout>
     </>
   );
