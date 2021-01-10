@@ -11,10 +11,12 @@ import { LegislativePeriodSelection } from '../components/LegislativePeriodSelec
 
 const FactionsPage: React.FC = () => {
   const dispatch = useDispatch();
-  const { factions } = useSelector(getAllFactions);
+  const { factions, factionGraphs, factionRanks } = useSelector(getAllFactions);
   const { sessions } = useSelector(getAllSessions);
   useEffect(() => {
     dispatch(getFactionsStart());
+    dispatch(getFactionGraphsStart());
+    dispatch(getFactionRanksStart());
     dispatch(getSessionsStart());
   }, [dispatch]);
   const legislativePeriods =
@@ -25,7 +27,15 @@ const FactionsPage: React.FC = () => {
         <LegislativePeriodSelection legislativePeriods={legislativePeriods} />
         <FactionNavigation />
         <br />
+        {sessions.length}
+
+        <br />
         {`Faction count: ${factions.length}`}
+        <br />
+        {`Faction graphs count: ${factionGraphs.length}`}
+        {factionGraphs}
+        <br />
+        {`Faction ranks count: ${factionRanks.length}`}
       </Layout>
     </>
   );

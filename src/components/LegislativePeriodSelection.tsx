@@ -16,7 +16,7 @@ export const LegislativePeriodSelection: React.FC<LegislativePeriodSelectionProp
     <div>
       <h1>
         <Dropdown>
-          <Dropdown.Toggle variant="secondary" id="dropdown-basic" size="lg">
+          <Dropdown.Toggle className="dropdown-black" id="dropdown-basic" size="lg">
             {selectedPeriod}
           </Dropdown.Toggle>
 

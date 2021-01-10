@@ -1,9 +1,29 @@
-.navbar{
+.navbar-top{
     background-color: black;
     margin-bottom: 3rem;
 }
 
+.navbar-bottom{
+    background-color: rgba(0, 0, 0, 0);
+}
+
 .dropdown{
     display: inline;
-    margin-right: 0.5rem
+    margin-right: 0.5rem;
+}
+
+.dropdown-black{
+    background-color: black;
+}
+
+a{
+    color: #434343;
+}
+
+a:hover{
+    color: black;
+}
+
+.content-layout{
+    min-height: 100vh;
 }

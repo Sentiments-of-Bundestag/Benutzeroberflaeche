@@ -10,7 +10,7 @@ export interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ links }) => {
   const history = useHistory();
   return (
-    <Navbar expand="lg" variant="dark">
+    <Navbar className="navbar-top" expand="lg">
       <Navbar.Brand onClick={() => history.push('/')}>
         Sentiment of Bundestag
       </Navbar.Brand>
