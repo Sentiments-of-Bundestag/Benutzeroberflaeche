@@ -7,6 +7,7 @@ export interface RoutesProps {}
 
 export const Routes: React.FC<RoutesProps> = () => (
   <Switch>
+    {/* <Route exact path="/" component={HomePage} /> */}
     <Route exact path="/" component={FactionsPage} />
   </Switch>
 );

@@ -1,29 +1,33 @@
-.navbar-top{
-    background-color: black;
-    margin-bottom: 3rem;
+.navbar-top {
+  color: white;
+  background-color: black;
+  margin-bottom: 3rem;
 }
 
-.navbar-bottom{
-    background-color: rgba(0, 0, 0, 0);
+.navbar-light .navbar-brand {
+  color: white;
+}
+.navbar-light .navbar-brand:hover {
+  color: white;
 }
 
-.dropdown{
-    display: inline;
-    margin-right: 0.5rem;
+.dropdown {
+  display: inline;
+  margin-right: 0.5rem;
 }
 
-.dropdown-black{
-    background-color: black;
+.dropdown-black {
+  background-color: black;
 }
 
-a{
-    color: #434343;
+a {
+  color: #434343;
 }
 
-a:hover{
-    color: black;
+a:hover {
+  color: black;
 }
 
-.content-layout{
-    min-height: 100vh;
+.content-layout {
+  min-height: 100vh;
 }

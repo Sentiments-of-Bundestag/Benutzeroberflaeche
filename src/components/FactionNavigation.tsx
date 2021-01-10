@@ -15,17 +15,12 @@ export const FactionNavigation: React.FC<FactionNavigationProps> = () => {
     <Row>
       <Col xs={4} md={2}>
         <Figure>
-          <Figure.Image thumbnail alt="SPD" src={SPD_LOGO} />
-        </Figure>
-      </Col>
-      <Col xs={4} md={2}>
-        <Figure>
-          <Figure.Image thumbnail alt="FDP" src={FDP_LOGO} />
-        </Figure>
-      </Col>
-      <Col xs={4} md={2}>
-        <Figure>
           <Figure.Image thumbnail alt="DIE LINKE" src={LINKE_LOGO} />
+        </Figure>
+      </Col>
+      <Col xs={4} md={2}>
+        <Figure>
+          <Figure.Image thumbnail alt="SPD" src={SPD_LOGO} />
         </Figure>
       </Col>
       <Col xs={4} md={2}>
@@ -39,12 +34,17 @@ export const FactionNavigation: React.FC<FactionNavigationProps> = () => {
       </Col>
       <Col xs={4} md={2}>
         <Figure>
-          <Figure.Image thumbnail alt="AFD" src={AFD_LOGO} />
+          <Figure.Image thumbnail alt="CDU/CSU" src={CDU_CSU_LOGO} />
         </Figure>
       </Col>
       <Col xs={4} md={2}>
         <Figure>
-          <Figure.Image thumbnail alt="CDU/CSU" src={CDU_CSU_LOGO} />
+          <Figure.Image thumbnail alt="FDP" src={FDP_LOGO} />
+        </Figure>
+      </Col>
+      <Col xs={4} md={2}>
+        <Figure>
+          <Figure.Image thumbnail alt="AFD" src={AFD_LOGO} />
         </Figure>
       </Col>
     </Row>
