@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Card } from 'react-bootstrap';
 import {
   getFactionGraphsStart,
   getFactionRanksStart,
@@ -13,9 +12,6 @@ import { Layout } from '../components/Layout';
 import { FactionNavigation } from '../components/FactionNavigation';
 import { getAllSessions } from '../selectors/sessions';
 import { SessionSelection } from '../components/SessionSelection';
-import { FactionPie } from '../components/FactionPie';
-import { Session } from '../types';
-import { FactionGraphPlot } from '../components/FactionGraphPlot';
 
 const FactionsPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -26,18 +22,21 @@ const FactionsPage: React.FC = () => {
     dispatch(getFactionGraphsStart());
     dispatch(getFactionRanksStart());
     dispatch(getSessionsStart());
-    dispatch(getSessionsStart());
   }, [dispatch]);
-
   return (
     <>
       <Layout>
-        <SessionSelection sessions={sessions} />
-
-        <FactionPie factions={factions} />
         <FactionNavigation />
+        <br />
+        {sessions.length}
 
-        <FactionGraphPlot factionsGraph={factionGraphs} />
+        <br />
+        {`Faction count: ${factions.length}`}
+        <br />
+        {`Faction graphs count: ${factionGraphs.length}`}
+        {factionGraphs}
+        <br />
+        {`Faction ranks count: ${factionRanks.length}`}
       </Layout>
     </>
   );
