@@ -1,0 +1,9 @@
+.navbar{
+    background-color: black;
+    margin-bottom: 3rem;
+}
+
+.dropdown{
+    display: inline;
+    margin-right: 0.5rem
+}

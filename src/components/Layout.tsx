@@ -2,6 +2,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 
 import { Header } from './Header';
+import { Footer } from './Footer';
 
 export interface LayoutProps {
   children?: React.ReactNode;
@@ -10,13 +11,9 @@ export interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
-      <Header
-        links={[
-          { name: 'Parteien', route: '/factions' },
-          { name: 'Abgeordnete', route: '/persons' },
-        ]}
-      />
+      <Header />
       <Container>{children}</Container>
+      <Footer />
     </>
   );
 };

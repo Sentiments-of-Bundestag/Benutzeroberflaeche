@@ -1,7 +1,6 @@
 import React from 'react';
-import { Nav, Navbar } from 'react-bootstrap';
+import { Nav, Navbar, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-
 import { NavigationLinkInterface } from '../types';
 
 export interface HeaderProps {
@@ -11,30 +10,21 @@ export interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ links }) => {
   const history = useHistory();
   return (
-    <Navbar expand="lg" bg="light" variant="light">
+    <Navbar expand="lg" variant="dark">
       <Navbar.Brand onClick={() => history.push('/')}>
-        Bundestag Analytics
+        Sentiment of Bundestag
       </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse>
-        <Nav className="mr-auto">
-          {links &&
-            links.map((link, index) => (
-              <Nav.Link
-                key={index.toString()}
-                onClick={() => history.push(link.route)}
-              >
-                {link.name}
-              </Nav.Link>
-            ))}
-        </Nav>
+        <Nav className="mr-auto" />
         <Nav>
-          <Nav.Link href="https://www.htw-berlin.de/impressum/">
-            Impressum
+          {/*          <Nav.Link>
+            Über uns
+          </Nav.Link> */}
+          <Nav.Link target="_blank" href="https://github.com/orgs/Sentiments-of-Bundestag/dashboard">
+            <Button variant="outline-light">Code</Button>
           </Nav.Link>
-          <Nav.Link href="https://www.htw-berlin.de/datenschutz/">
-            Datenschutzerlärung
-          </Nav.Link>
+
         </Nav>
       </Navbar.Collapse>
     </Navbar>
