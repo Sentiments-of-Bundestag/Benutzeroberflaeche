@@ -11,7 +11,6 @@ import { getAllFactions } from '../selectors/factions';
 import { Layout } from '../components/Layout';
 import { FactionNavigation } from '../components/FactionNavigation';
 import { getAllSessions } from '../selectors/sessions';
-import { SessionSelection } from '../components/SessionSelection';
 
 const FactionsPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -29,7 +28,6 @@ const FactionsPage: React.FC = () => {
         <FactionNavigation />
         <br />
         {sessions.length}
-
         <br />
         {`Faction count: ${factions.length}`}
         <br />

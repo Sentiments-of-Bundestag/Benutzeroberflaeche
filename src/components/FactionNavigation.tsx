@@ -12,41 +12,48 @@ export interface FactionNavigationProps {}
 
 export const FactionNavigation: React.FC<FactionNavigationProps> = () => {
   return (
-    <Row>
-      <Col xs={4} md={2}>
-        <Figure>
-          <Figure.Image thumbnail alt="DIE LINKE" src={LINKE_LOGO} />
-        </Figure>
-      </Col>
-      <Col xs={4} md={2}>
-        <Figure>
-          <Figure.Image thumbnail alt="SPD" src={SPD_LOGO} />
-        </Figure>
-      </Col>
-      <Col xs={4} md={2}>
-        <Figure>
-          <Figure.Image
-            thumbnail
-            alt="BÜNDNIS 90/DIE GRÜNEN"
-            src={GRUENEN_LOGO}
-          />
-        </Figure>
-      </Col>
-      <Col xs={4} md={2}>
-        <Figure>
-          <Figure.Image thumbnail alt="CDU/CSU" src={CDU_CSU_LOGO} />
-        </Figure>
-      </Col>
-      <Col xs={4} md={2}>
-        <Figure>
-          <Figure.Image thumbnail alt="FDP" src={FDP_LOGO} />
-        </Figure>
-      </Col>
-      <Col xs={4} md={2}>
-        <Figure>
-          <Figure.Image thumbnail alt="AFD" src={AFD_LOGO} />
-        </Figure>
-      </Col>
-    </Row>
+    <div style={{ marginTop: 40 }}>
+      <h1>Sentiment Analyse</h1>
+      <p className="text-larger">
+        Wähle eine Partei aus, um die Interaktionen der Partei zu den anderen
+        Parteien zu sehen
+      </p>
+      <Row>
+        <Col xs={4} md={2}>
+          <Figure>
+            <Figure.Image thumbnail alt="DIE LINKE" src={LINKE_LOGO} />
+          </Figure>
+        </Col>
+        <Col xs={4} md={2}>
+          <Figure>
+            <Figure.Image thumbnail alt="SPD" src={SPD_LOGO} />
+          </Figure>
+        </Col>
+        <Col xs={4} md={2}>
+          <Figure>
+            <Figure.Image
+              thumbnail
+              alt="BÜNDNIS 90/DIE GRÜNEN"
+              src={GRUENEN_LOGO}
+            />
+          </Figure>
+        </Col>
+        <Col xs={4} md={2}>
+          <Figure>
+            <Figure.Image thumbnail alt="CDU/CSU" src={CDU_CSU_LOGO} />
+          </Figure>
+        </Col>
+        <Col xs={4} md={2}>
+          <Figure>
+            <Figure.Image thumbnail alt="FDP" src={FDP_LOGO} />
+          </Figure>
+        </Col>
+        <Col xs={4} md={2}>
+          <Figure>
+            <Figure.Image thumbnail alt="AFD" src={AFD_LOGO} />
+          </Figure>
+        </Col>
+      </Row>
+    </div>
   );
 };
