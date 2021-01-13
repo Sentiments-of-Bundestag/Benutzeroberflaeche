@@ -14,13 +14,14 @@ const HomePage: React.FC = () => {
       <Layout>
         <h1>Sozialer Interaktion im Deutschen Bundestag</h1>
         <p className="text-justify">
-          Der Ton im Bundestag wird rauer. Um dies zu zeigen, hat das Projekt
+          Der Ton im Bundestag wird rauer. Um dies zu überprüfen, hat das Projekt
           Sentiment of Bundestag die Plenumsprotokolle des Bundestages mit
-          künstlicher Intelligenzen untersucht. Mit Hilfe solcher
-          State-of-the-Art Algorithmen, konnten die Stimmungen und
-          Stimmungsmacher in den Plenarsitzungen identifiziert werden.
+          künstlicher Intelligenzen untersucht.
         </p>
 
+        <p className="text-justify">
+          TBD
+        </p>
         <p className="text-justify">
           Hierbei handelt es sich um ein Semesterprojekt im Rahmen der
           Lehrveranstaltung Information Systems bei Prof. Dr. Thomas Hoppe an

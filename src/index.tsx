@@ -8,6 +8,7 @@ import store from './store';
 import { Routes } from './routes';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import './index.css';
 
 config();

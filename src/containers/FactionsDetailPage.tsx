@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -9,7 +8,6 @@ import {
 import { getSessionsStart } from '../slices/sessions';
 import { getAllFactions } from '../selectors/factions';
 import { Layout } from '../components/Layout';
-import { FactionNavigation } from '../components/FactionNavigation';
 import { getAllSessions } from '../selectors/sessions';
 
 const FactionsPage: React.FC = () => {
@@ -25,7 +23,6 @@ const FactionsPage: React.FC = () => {
   return (
     <>
       <Layout>
-        <FactionNavigation />
         <br />
         {sessions.length}
         <br />
