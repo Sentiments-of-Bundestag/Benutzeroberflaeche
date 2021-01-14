@@ -1,7 +1,6 @@
 import React from 'react';
-import { Card, Dropdown } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import { Session } from '../types';
-import { Layout } from './Layout';
 
 export interface LegislativePeriodSelectionProps {
   sessions: Session[];
@@ -49,9 +48,11 @@ export const SessionSelection: React.FC<LegislativePeriodSelectionProps> = ({
         </Dropdown>
         Legislaturperiode
       </h1>
-      <Card>
-        <Card.Body>{`Daten von ${sessions.length} Sitzung`}</Card.Body>
-      </Card>
+      <p className="text-justify">
+        {`Derzeit liegen Protokolle aus ${sessions.length} Plenarsitzungen der 
+          ${legislativePeriods}. Legislaturperiode vor. Die folgenden Diagramme 
+          sind auf Basis der verfügbaren Protokolle erstellt.`}
+      </p>
     </div>
   );
 };

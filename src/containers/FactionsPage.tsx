@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Card } from 'react-bootstrap';
 import {
   getFactionGraphsStart,
   getFactionRanksStart,
@@ -14,30 +13,75 @@ import { FactionNavigation } from '../components/FactionNavigation';
 import { getAllSessions } from '../selectors/sessions';
 import { SessionSelection } from '../components/SessionSelection';
 import { FactionPie } from '../components/FactionPie';
-import { Session } from '../types';
+import { Faction, Person } from '../types';
+import { FactionGraphBarPlot } from '../components/FactionGraphBarPlot';
+import { FactionGraphSwarmPlot } from '../components/FactionGraphSwarmPlot';
+import { PersonTable } from '../components/PersonTable';
+import { getAllPersons } from '../selectors/persons';
+import {
+  getPersonGraphsStart,
+  getPersonMessagesStart,
+  getPersonRanksStart,
+  getPersonsStart,
+} from '../slices/persons';
 import { FactionGraphPlot } from '../components/FactionGraphPlot';
+import { FactionRankBarPlot } from '../components/FactionRankBarPlot';
 
 const FactionsPage: React.FC = () => {
   const dispatch = useDispatch();
   const { factions, factionGraphs, factionRanks } = useSelector(getAllFactions);
+  const { persons } = useSelector(getAllPersons);
   const { sessions } = useSelector(getAllSessions);
   useEffect(() => {
     dispatch(getFactionsStart());
     dispatch(getFactionGraphsStart());
     dispatch(getFactionRanksStart());
     dispatch(getSessionsStart());
-    dispatch(getSessionsStart());
+    dispatch(getPersonsStart());
+    dispatch(getPersonGraphsStart());
+    dispatch(getPersonMessagesStart());
+    dispatch(getPersonRanksStart());
   }, [dispatch]);
+
+  const [selectedFaction, setSelectedFaction] = React.useState<
+    Faction | undefined
+  >(undefined);
 
   return (
     <>
       <Layout>
         <SessionSelection sessions={sessions} />
-
         <FactionPie factions={factions} />
-        <FactionNavigation />
 
-        <FactionGraphPlot factionsGraph={factionGraphs} />
+        <FactionNavigation
+          factions={factions}
+          selectFaction={setSelectedFaction}
+        />
+        <FactionRankBarPlot factionRanks={factionRanks} />
+        {selectedFaction !== undefined && factionGraphs.length > 0 ? (
+          <>
+            <FactionGraphBarPlot
+              faction={selectedFaction}
+              factions={factions}
+              factionsGraph={factionGraphs}
+            />
+            <FactionGraphPlot
+              faction={selectedFaction}
+              factions={factions}
+              factionsGraph={factionGraphs}
+            />
+            <FactionGraphSwarmPlot
+              faction={selectedFaction}
+              factions={factions}
+              factionsGraph={factionGraphs}
+            />
+            <PersonTable
+              persons={persons.filter(
+                (person) => person.factionId === selectedFaction?.factionId,
+              )}
+            />
+          </>
+        ) : null}
       </Layout>
     </>
   );
