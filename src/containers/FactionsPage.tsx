@@ -1,7 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getFactionGraphsStart, getFactionRanksStart, getFactionsStart } from '../slices/factions';
+import {
+  getFactionGraphsStart,
+  getFactionRanksStart,
+  getFactionsStart,
+} from '../slices/factions';
 import { getSessionsStart } from '../slices/sessions';
 import { getAllFactions } from '../selectors/factions';
 import { Layout } from '../components/Layout';
@@ -14,8 +18,14 @@ import { FactionGraphBarPlot } from '../components/FactionGraphBarPlot';
 import { FactionGraphSwarmPlot } from '../components/FactionGraphSwarmPlot';
 import { PersonTable } from '../components/PersonTable';
 import { getAllPersons } from '../selectors/persons';
-import { getPersonGraphsStart, getPersonMessagesStart, getPersonRanksStart, getPersonsStart } from '../slices/persons';
+import {
+  getPersonGraphsStart,
+  getPersonMessagesStart,
+  getPersonRanksStart,
+  getPersonsStart,
+} from '../slices/persons';
 import { FactionGraphPlot } from '../components/FactionGraphPlot';
+import { FactionRankBarPlot } from '../components/FactionRankBarPlot';
 
 const FactionsPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -33,7 +43,9 @@ const FactionsPage: React.FC = () => {
     dispatch(getPersonRanksStart());
   }, [dispatch]);
 
-  const [selectedFaction, setSelectedFaction] = React.useState<Faction | undefined>(undefined);
+  const [selectedFaction, setSelectedFaction] = React.useState<
+    Faction | undefined
+  >(undefined);
 
   return (
     <>
@@ -41,13 +53,33 @@ const FactionsPage: React.FC = () => {
         <SessionSelection sessions={sessions} />
         <FactionPie factions={factions} />
 
-        <FactionNavigation factions={factions} selectFaction={setSelectedFaction} />
+        <FactionNavigation
+          factions={factions}
+          selectFaction={setSelectedFaction}
+        />
+        <FactionRankBarPlot factionRanks={factionRanks} />
         {selectedFaction !== undefined && factionGraphs.length > 0 ? (
           <>
-            <FactionGraphBarPlot faction={selectedFaction} factions={factions} factionsGraph={factionGraphs} />
-            <FactionGraphPlot faction={selectedFaction} factions={factions} factionsGraph={factionGraphs} />
-            <FactionGraphSwarmPlot faction={selectedFaction} factions={factions} factionsGraph={factionGraphs} />
-            <PersonTable persons={persons.filter(person => person.factionId === selectedFaction?.factionId)} />
+            <FactionGraphBarPlot
+              faction={selectedFaction}
+              factions={factions}
+              factionsGraph={factionGraphs}
+            />
+            <FactionGraphPlot
+              faction={selectedFaction}
+              factions={factions}
+              factionsGraph={factionGraphs}
+            />
+            <FactionGraphSwarmPlot
+              faction={selectedFaction}
+              factions={factions}
+              factionsGraph={factionGraphs}
+            />
+            <PersonTable
+              persons={persons.filter(
+                (person) => person.factionId === selectedFaction?.factionId,
+              )}
+            />
           </>
         ) : null}
       </Layout>

@@ -84,6 +84,8 @@ export const FactionPie: React.FC<FractionPieProps> = ({ factions }) => {
 
   return (
     <div style={{ height: 500 }}>
+      <h2>Allgemein</h2>
+
       <ResponsivePie
         data={data}
         margin={{ top: 40, right: 80, bottom: 20, left: 80 }}

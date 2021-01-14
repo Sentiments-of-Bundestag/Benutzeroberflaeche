@@ -14,14 +14,16 @@ export interface FactionNavigationProps {
   selectFaction: (faction: Faction | undefined) => void;
 }
 
-export const FactionNavigation: React.FC<FactionNavigationProps> = ({ factions, selectFaction }) => {
-
-
+export const FactionNavigation: React.FC<FactionNavigationProps> = ({
+  factions,
+  selectFaction,
+}) => {
   return (
     <div style={{ marginTop: 40 }}>
-      <h1>Sentiment Analyse</h1>
+      <h2>Sentiment Analyse</h2>
       <p className="text-larger">
-        Wählen Sie eine Partei aus, um die Interaktionen der Partei mit den anderen Parteien zu sehen
+        Wählen Sie eine Partei aus, um die Interaktionen der Partei mit den
+        anderen Parteien zu sehen
       </p>
       <Row>
         <Col xs={4} md={2}>
@@ -29,7 +31,11 @@ export const FactionNavigation: React.FC<FactionNavigationProps> = ({ factions, 
             <Button
               variant="outline-light"
               size="lg"
-              onClick={() => selectFaction(factions.find(faction => faction.factionId === 'F002'))}
+              onClick={() =>
+                selectFaction(
+                  factions.find((faction) => faction.factionId === 'F002'),
+                )
+              }
             >
               <Figure.Image thumbnail alt="DIE LINKE" src={LINKE_LOGO} />
             </Button>
@@ -40,7 +46,11 @@ export const FactionNavigation: React.FC<FactionNavigationProps> = ({ factions, 
             <Button
               variant="outline-light"
               size="lg"
-              onClick={() => selectFaction(factions.find(faction => faction.factionId === 'F001'))}
+              onClick={() =>
+                selectFaction(
+                  factions.find((faction) => faction.factionId === 'F001'),
+                )
+              }
             >
               <Figure.Image thumbnail alt="SPD" src={SPD_LOGO} />
             </Button>
@@ -51,7 +61,11 @@ export const FactionNavigation: React.FC<FactionNavigationProps> = ({ factions, 
             <Button
               variant="outline-light"
               size="lg"
-              onClick={() => selectFaction(factions.find(faction => faction.factionId === 'F003'))}
+              onClick={() =>
+                selectFaction(
+                  factions.find((faction) => faction.factionId === 'F003'),
+                )
+              }
             >
               <Figure.Image
                 thumbnail
@@ -66,7 +80,11 @@ export const FactionNavigation: React.FC<FactionNavigationProps> = ({ factions, 
             <Button
               variant="outline-light"
               size="lg"
-              onClick={() => selectFaction(factions.find(faction => faction.factionId === 'F000'))}
+              onClick={() =>
+                selectFaction(
+                  factions.find((faction) => faction.factionId === 'F000'),
+                )
+              }
             >
               <Figure.Image thumbnail alt="CDU/CSU" src={CDU_CSU_LOGO} />
             </Button>
@@ -77,7 +95,11 @@ export const FactionNavigation: React.FC<FactionNavigationProps> = ({ factions, 
             <Button
               variant="outline-light"
               size="lg"
-              onClick={() => selectFaction(factions.find(faction => faction.factionId === 'F005'))}
+              onClick={() =>
+                selectFaction(
+                  factions.find((faction) => faction.factionId === 'F005'),
+                )
+              }
             >
               <Figure.Image thumbnail alt="FDP" src={FDP_LOGO} />
             </Button>
@@ -88,7 +110,11 @@ export const FactionNavigation: React.FC<FactionNavigationProps> = ({ factions, 
             <Button
               variant="outline-light"
               size="lg"
-              onClick={() => selectFaction(factions.find(faction => faction.factionId === 'F004'))}
+              onClick={() =>
+                selectFaction(
+                  factions.find((faction) => faction.factionId === 'F004'),
+                )
+              }
             >
               <Figure.Image thumbnail alt="AFD" src={AFD_LOGO} />
             </Button>
