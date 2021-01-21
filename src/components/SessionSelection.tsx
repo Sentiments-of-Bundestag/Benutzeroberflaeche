@@ -50,7 +50,7 @@ export const SessionSelection: React.FC<LegislativePeriodSelectionProps> = ({
     <div>
       <h1>
         <OverlayTrigger
-          placement="bottom-start"
+          placement="top-start"
           delay={{ show: 250, hide: 400 }}
           overlay={renderTooltip}
         >
