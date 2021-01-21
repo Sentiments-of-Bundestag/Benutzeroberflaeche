@@ -75,7 +75,7 @@ export const PersonTable: React.FC<FactionTableProps> = ({ persons }) => {
   });
 
   const [filteredPersons, setFilteredPersons] = React.useState<
-    PersonRanked[] | undefined
+  PersonRanked[] | undefined
   >(undefined);
 
   return (
@@ -84,8 +84,7 @@ export const PersonTable: React.FC<FactionTableProps> = ({ persons }) => {
         style={{ width: 200 }}
         options={options}
         filterOption={(inputValue, option) =>
-          option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-        }
+          option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
       >
         <Input.Search
           size="large"

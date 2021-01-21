@@ -44,7 +44,7 @@ const FactionsPage: React.FC = () => {
   }, [dispatch]);
 
   const [selectedFaction, setSelectedFaction] = React.useState<
-    Faction | undefined
+  Faction | undefined
   >(undefined);
 
   return (
