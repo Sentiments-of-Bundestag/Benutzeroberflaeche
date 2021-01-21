@@ -8,6 +8,7 @@ import GRUENEN_LOGO from '../assets/gruenen.png';
 import AFD_LOGO from '../assets/afd_logo.png';
 import CDU_CSU_LOGO from '../assets/cdu_csu_logo.png';
 import { Faction } from '../types';
+import { Layout } from './Layout';
 
 export interface FactionNavigationProps {
   factions: Faction[];
@@ -20,10 +21,10 @@ export const FactionNavigation: React.FC<FactionNavigationProps> = ({
 }) => {
   return (
     <div style={{ marginTop: 40 }}>
-      <h2>Sentiment Analyse</h2>
-      <p className="text-larger">
-        Wählen Sie eine Partei aus, um die Interaktionen der Partei mit den
-        anderen Parteien zu sehen
+      <p className="text-justify">
+        Dank der Sentiment-Analyse erfahren wir nun, wie Stimmungen der Parteien
+        zueinander sind. Wählen Sie dazu eine Partei aus, um die Stimmung der
+        ausgewählten Partei zu den anderen Parteien genauer zu betrachten.
       </p>
       <Row>
         <Col xs={4} md={2}>

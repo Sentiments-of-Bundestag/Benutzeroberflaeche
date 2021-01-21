@@ -1,5 +1,6 @@
 import React from 'react';
-import { Dropdown } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip, Dropdown } from 'react-bootstrap';
+
 import { Session } from '../types';
 
 export interface LegislativePeriodSelectionProps {
@@ -26,32 +27,61 @@ export const SessionSelection: React.FC<LegislativePeriodSelectionProps> = ({
 
   const [selectedPeriod, setSelectedPeriod] = React.useState<number>(19);
 
+  // @ts-ignore
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Wähle zuerst eine Legislaturperiode aus, die du genauer betrachten
+      möchtest.
+    </Tooltip>
+  );
+
+  const sessionList = [...sessions];
+  sessionList.sort((a, b) =>
+    (a ? a.startDateTime : '').localeCompare(a ? a.startDateTime : ''),
+  );
+  const firstDate = sessionList.length
+    ? new Date(Date.parse(sessionList[0].startDateTime))
+    : undefined;
+  const lastDate = sessionList.length
+    ? new Date(Date.parse(sessionList[sessionList.length - 1].endDateTime))
+    : undefined;
+
   return (
     <div>
       <h1>
-        <Dropdown>
-          <Dropdown.Toggle
-            className="dropdown-black"
-            id="dropdown-basic"
-            size="lg"
-          >
-            {selectedPeriod}
-          </Dropdown.Toggle>
+        <OverlayTrigger
+          placement="bottom-start"
+          delay={{ show: 250, hide: 400 }}
+          overlay={renderTooltip}
+        >
+          <Dropdown>
+            <Dropdown.Toggle
+              className="dropdown-black"
+              id="dropdown-basic"
+              size="lg"
+            >
+              {selectedPeriod}
+            </Dropdown.Toggle>
 
-          <Dropdown.Menu>
-            {dropdownItems}
-            <Dropdown.Divider />
-            <Dropdown.Item disabled={true} key="-1">
-              Mehr in Arbeit
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+            <Dropdown.Menu>
+              {dropdownItems}
+              <Dropdown.Divider />
+              <Dropdown.Item disabled={true} key="-1">
+                Mehr in Arbeit
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </OverlayTrigger>
         Legislaturperiode
       </h1>
       <p className="text-justify">
-        {`Derzeit liegen Protokolle aus ${sessions.length} Plenarsitzungen der 
-          ${legislativePeriods}. Legislaturperiode vor. Die folgenden Diagramme 
-          sind auf Basis der verfügbaren Protokolle erstellt.`}
+        {`Die Legislaturperiode ${legislativePeriods} war vom ${
+          firstDate || ''
+        } 
+        bis zum ${lastDate || ''}. Derzeit befinden sich ${
+          sessions.length
+        } Protokolle zur
+        Verfügung. `}
       </p>
     </div>
   );

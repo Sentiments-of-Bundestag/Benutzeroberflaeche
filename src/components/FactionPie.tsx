@@ -16,22 +16,23 @@ export const FactionPie: React.FC<FractionPieProps> = ({ factions }) => {
     },
     {
       factionId: 'F001', // SPD
-      color: 'hsl(105,70%,50%)',
+      color: 'hsl(0,100%,50%)',
       rank: 1,
     },
     {
       factionId: 'F003', // BÜNDNIS90/DIE GRÜNEN
-      color: 'hsl(0,100%,50%)',
+      color: 'hsl(105,70%,50%)',
       rank: 2,
     },
     {
       factionId: 'F000', // CDU/CSU
-      color: 'hsl(52,100%,50%)',
+      color: 'hsl(0,0%,0%)',
+
       rank: 3,
     },
     {
       factionId: 'F005', // FDP
-      color: 'hsl(0,0%,0%)',
+      color: 'hsl(52,100%,50%)',
       rank: 4,
     },
     {
@@ -82,36 +83,49 @@ export const FactionPie: React.FC<FractionPieProps> = ({ factions }) => {
     );
   };
 
+  const factionList = [...factions];
+  factionList.sort((a, b) => b.size - a.size);
+  const biggestFaction = factionList.length ? factionList[0] : undefined;
   return (
-    <div style={{ height: 500 }}>
-      <h2>Allgemein</h2>
-
-      <ResponsivePie
-        data={data}
-        margin={{ top: 40, right: 80, bottom: 20, left: 80 }}
-        startAngle={105}
-        endAngle={-105}
-        sortByValue={false}
-        innerRadius={0.5}
-        padAngle={1}
-        cornerRadius={10}
-        colors={{ datum: 'data.color' }}
-        borderWidth={2}
-        borderColor={{ theme: 'grid.line.stroke' }}
-        enableRadialLabels={true}
-        radialLabelsTextColor="#333333"
-        radialLabelsLinkColor={{ from: 'color' }}
-        sliceLabel="value"
-        sliceLabelsSkipAngle={10}
-        sliceLabelsTextColor={{ theme: 'background' }}
-        layers={[
-          'slices',
-          'sliceLabels',
-          'radialLabels',
-          'legends',
-          CenteredMetric,
-        ]}
-      />
-    </div>
+    <>
+      <h2>Zusammensetzung des Bundestages</h2>
+      <p className="text-justify">
+        {`Die Zusammensetzung des Bundestages war zu dieser Legislaturperiode 
+          folgendermaßen gewählt. Die Partei ${
+            biggestFaction ? biggestFaction.name : ''
+          } 
+          hat mit ${
+            biggestFaction ? biggestFaction.size : ''
+          }  die meisten Stimmen gehabt.`}
+      </p>
+      <div style={{ height: 500 }}>
+        <ResponsivePie
+          data={data}
+          margin={{ top: 40, right: 80, bottom: 20, left: 80 }}
+          startAngle={105}
+          endAngle={-105}
+          sortByValue={false}
+          innerRadius={0.5}
+          padAngle={1}
+          cornerRadius={10}
+          colors={{ datum: 'data.color' }}
+          borderWidth={2}
+          borderColor={{ theme: 'grid.line.stroke' }}
+          enableRadialLabels={true}
+          radialLabelsTextColor="#333333"
+          radialLabelsLinkColor={{ from: 'color' }}
+          sliceLabel="value"
+          sliceLabelsSkipAngle={10}
+          sliceLabelsTextColor={{ theme: 'background' }}
+          layers={[
+            'slices',
+            'sliceLabels',
+            'radialLabels',
+            'legends',
+            CenteredMetric,
+          ]}
+        />
+      </div>
+    </>
   );
 };

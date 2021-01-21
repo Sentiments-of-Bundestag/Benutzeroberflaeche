@@ -13,7 +13,7 @@ import { FactionNavigation } from '../components/FactionNavigation';
 import { getAllSessions } from '../selectors/sessions';
 import { SessionSelection } from '../components/SessionSelection';
 import { FactionPie } from '../components/FactionPie';
-import { Faction, Person } from '../types';
+import { Faction } from '../types';
 import { FactionGraphBarPlot } from '../components/FactionGraphBarPlot';
 import { FactionGraphSwarmPlot } from '../components/FactionGraphSwarmPlot';
 import { PersonTable } from '../components/PersonTable';
@@ -22,22 +22,22 @@ import {
   getPersonGraphsStart,
   getPersonMessagesStart,
   getPersonRanksStart,
-  getPersonsStart,
 } from '../slices/persons';
 import { FactionGraphPlot } from '../components/FactionGraphPlot';
 import { FactionRankBarPlot } from '../components/FactionRankBarPlot';
+import { SentimentCards } from '../components/SentimentCards';
+import { FactionGraphCordPlot } from '../components/FactionGraphChordPlot';
 
 const FactionsPage: React.FC = () => {
   const dispatch = useDispatch();
   const { factions, factionGraphs, factionRanks } = useSelector(getAllFactions);
-  const { persons } = useSelector(getAllPersons);
+  const { personRanks } = useSelector(getAllPersons);
   const { sessions } = useSelector(getAllSessions);
   useEffect(() => {
     dispatch(getFactionsStart());
     dispatch(getFactionGraphsStart());
     dispatch(getFactionRanksStart());
     dispatch(getSessionsStart());
-    dispatch(getPersonsStart());
     dispatch(getPersonGraphsStart());
     dispatch(getPersonMessagesStart());
     dispatch(getPersonRanksStart());
@@ -52,12 +52,29 @@ const FactionsPage: React.FC = () => {
       <Layout>
         <SessionSelection sessions={sessions} />
         <FactionPie factions={factions} />
-
+        <FactionRankBarPlot factionRanks={factionRanks} />
+        <h2>Sentiment Analyse</h2>
+        <p className="text-justify">
+          Das Wort Sentiment stammt aus dem Französischen und bedeutet einfach
+          Gefühl oder Empfindung. Bei der Sentiment-Analyse wird demnach
+          untersucht, welche Empfindungen gegenüber einer bestimmten Sache
+          vorherrschen. Wem der Begriff Sentiment-Analyse nicht liegt, der kann
+          Tonalitätsanalyse verwenden. Ganz im Sinne von „Der Ton macht die
+          Musik“.
+        </p>
+        <p className="text-justify">
+          Diese Sentiment-Analyse ermittelt die Stimmung im Bundestag. Hier
+          werden die Protokolle auf Basis von vorher festgelegten positiven und
+          negativen Signal-Worten bewertet. Die Worte „freundlich“ und
+          „kompetent“ werden als positive Signale bewertet und das Wort „ätzend“
+          als negatives. Insgesamt würde der Satz als positiv von der Software
+          eingeordnet werden, da zwei positive nur einem negativen Signal-Wort
+          gegenüberstehen.
+        </p>
         <FactionNavigation
           factions={factions}
           selectFaction={setSelectedFaction}
         />
-        <FactionRankBarPlot factionRanks={factionRanks} />
         {selectedFaction !== undefined && factionGraphs.length > 0 ? (
           <>
             <FactionGraphBarPlot
@@ -75,13 +92,13 @@ const FactionsPage: React.FC = () => {
               factions={factions}
               factionsGraph={factionGraphs}
             />
-            <PersonTable
-              persons={persons.filter(
-                (person) => person.factionId === selectedFaction?.factionId,
-              )}
-            />
           </>
         ) : null}
+        <FactionGraphCordPlot
+          factions={factions}
+          factionsGraph={factionGraphs}
+        />
+        <PersonTable persons={personRanks} />
       </Layout>
     </>
   );

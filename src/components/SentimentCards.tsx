@@ -14,11 +14,7 @@ export const SentimentCards: React.FC<SentimentCardsProp> = ({}) => {
                 😃
               </span>
             </Card.Title>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </Card.Text>
+            <Card.Text>Positiver</Card.Text>
           </Card.Body>
         </Card>
       </Col>
@@ -30,10 +26,7 @@ export const SentimentCards: React.FC<SentimentCardsProp> = ({}) => {
                 😐
               </span>
             </Card.Title>
-            <Card.Text>
-              This card has supporting text below as a natural lead-in to
-              additional content.{' '}
-            </Card.Text>
+            <Card.Text>0</Card.Text>
           </Card.Body>
         </Card>
       </Col>
@@ -45,10 +38,7 @@ export const SentimentCards: React.FC<SentimentCardsProp> = ({}) => {
                 ☹️
               </span>
             </Card.Title>
-            <Card.Text>
-              This card has supporting text below as a natural lead-in to
-              additional content.{' '}
-            </Card.Text>
+            <Card.Text>Negativer Wert</Card.Text>
           </Card.Body>
         </Card>
       </Col>
