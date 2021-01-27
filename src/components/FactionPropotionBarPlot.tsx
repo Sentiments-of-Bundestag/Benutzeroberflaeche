@@ -1,13 +1,13 @@
 import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
-import { FactionRanked } from '../types';
+import { FactionProportion } from '../types';
 
-export interface FactionRankBarPlotProps {
-  factionRanks: FactionRanked[];
+export interface FactionProportionBarPlotProps {
+  factionProportion: FactionProportion[];
 }
 
-export const FactionRankBarPlot: React.FC<FactionRankBarPlotProps> = ({
-  factionRanks,
+export const FactionPropotionBarPlot: React.FC<FactionProportionBarPlotProps> = ({
+  factionProportion,
 }) => {
   const colors = [
     {
@@ -43,14 +43,14 @@ export const FactionRankBarPlot: React.FC<FactionRankBarPlotProps> = ({
     },
   ];
 
-  const data = factionRanks.map((node) => {
+  const data = factionProportion.map((node) => {
     const colorObj = colors.find((color) => color.factionId === node.factionId);
     const defaultColor = 'hsl(0, 0, 0)';
     const defaultRank = -1;
 
     return {
       faction: node.name,
-      rang: node.rank,
+      rang: node.proportion,
       rank: colorObj ? colorObj.rank : defaultRank,
       color: colorObj ? colorObj.color : defaultColor,
     };
@@ -60,15 +60,40 @@ export const FactionRankBarPlot: React.FC<FactionRankBarPlotProps> = ({
     return b.rank - a.rank;
   });
 
+  const factionRankList: FactionProportion[] = [...factionProportion];
+  factionRankList.sort((a, b) => a.proportion - b.proportion);
+
+  const smallestFactionRank = factionRankList.length
+    ? factionRankList[0]
+    : undefined;
+  const biggestFactionRank = factionRankList.length
+    ? factionRankList[factionRankList.length - 1]
+    : undefined;
+
   return (
     <>
-      <h2>Kommunikation der Parteien</h2>
+      <h2>Redeanteil der Parteien</h2>
       <p className="text-larger">
-        Die Kommunikation einer Partei wird hier anhand des PageRank-Algorithmus
-        berechnet. Das bedeutet je mehr eine Partei mit anderen Parteien
-        kommuniziert, desto höher der PageRank-Wert. Die Summe aller
-        Kommunikationen ist immer 1. Folglich muss der Wert immer in relation zu
-        den anderen Werten betrachtet werden
+        Bevor wir uns zu den den Stimmungsanalysen begeben, sollten wir
+        zumindest noch einen Einblick in den Redeanteil der Parteien erhalten.
+        Der Redeanteil dient zur Beurteilung der Verhältnismäßigkeit von
+        Stimmungen in Bezug auf den gesamten Bundestag.
+      </p>
+      <p className="text-larger">
+        Die folgende Grafik gibt den Redeanteil von Parteien innerhalb der
+        Legislaturperiode wieder. Der Redeanteil wird auf der Basis des Pagerank
+        Algorithmus berechnet. Der Wert kann <b>zwischen 0 bis 1</b> liegen. Je
+        höher der Wert, desto höher ist der Redeanteil der Partei. Die Partei{' '}
+        <b>{biggestFactionRank ? biggestFactionRank.name : ''}</b> hat mit{' '}
+        <b>
+          {biggestFactionRank ? biggestFactionRank.proportion.toFixed(2) : ''}
+        </b>{' '}
+        den größten Redeanteil. Währenddessen hat die Partei{' '}
+        <b>{smallestFactionRank ? smallestFactionRank.name : ''}</b> mit{' '}
+        <b>
+          {smallestFactionRank ? smallestFactionRank.proportion.toFixed(2) : ''}
+        </b>{' '}
+        den kleinsten Redeanteil.
       </p>
       <div style={{ height: 620 }}>
         <ResponsiveBar

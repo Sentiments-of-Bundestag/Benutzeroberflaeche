@@ -75,13 +75,18 @@ export const SessionSelection: React.FC<LegislativePeriodSelectionProps> = ({
         Legislaturperiode
       </h1>
       <p className="text-justify">
-        {`Die Legislaturperiode ${legislativePeriods} war vom ${
-          firstDate || ''
-        } 
-        bis zum ${lastDate || ''}. Derzeit befinden sich ${
-          sessions.length
-        } Protokolle zur
-        Verfügung. `}
+        Die Legislaturperiode <b>{legislativePeriods}</b> war vom{' '}
+        <b>
+          {firstDate
+            ? `${firstDate.getMonth()}/${firstDate.getFullYear()}`
+            : ''}
+        </b>{' '}
+        bis zum{' '}
+        <b>
+          {lastDate ? `${lastDate.getMonth()}/${lastDate.getFullYear()}` : ''}
+        </b>
+        . Derzeit befinden sich <b>{sessions.length}</b> Protokolle zur
+        Verfügung.
       </p>
     </div>
   );

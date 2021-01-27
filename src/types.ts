@@ -43,6 +43,13 @@ export interface FactionRanked {
   sessionId: number[];
 }
 
+export interface FactionProportion {
+  factionId: string;
+  name: string;
+  size: number;
+  proportion: number;
+}
+
 export interface Person {
   faction: string;
   factionId: string;

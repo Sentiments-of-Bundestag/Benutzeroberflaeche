@@ -20,11 +20,6 @@ export const FactionNavigation: React.FC<FactionNavigationProps> = ({
 }) => {
   return (
     <div style={{ marginTop: 40 }}>
-      <p className="text-justify">
-        Dank der Sentiment-Analyse erfahren wir nun, wie Stimmungen der Parteien
-        zueinander sind. Wählen Sie dazu eine Partei aus, um die Stimmung der
-        ausgewählten Partei zu den anderen Parteien genauer zu betrachten.
-      </p>
       <Row>
         <Col xs={4} md={2}>
           <Figure>

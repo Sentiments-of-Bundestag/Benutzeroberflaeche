@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Nav, Navbar } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 import { NavigationLinkInterface } from '../types';
 
 export interface FooterProps {

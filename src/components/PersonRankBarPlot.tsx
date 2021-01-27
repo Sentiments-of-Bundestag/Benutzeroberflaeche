@@ -1,13 +1,13 @@
 import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
-import { FactionRanked } from '../types';
+import { PersonRanked } from '../types';
 
-export interface FactionRankBarPlotProps {
-  factionRanks: FactionRanked[];
+export interface PersonRankBarPlotProps {
+  personRanks: PersonRanked[];
 }
 
-export const FactionRankBarPlot: React.FC<FactionRankBarPlotProps> = ({
-  factionRanks,
+export const PersonRankBarPlot: React.FC<PersonRankBarPlotProps> = ({
+  personRanks,
 }) => {
   const colors = [
     {
@@ -43,7 +43,7 @@ export const FactionRankBarPlot: React.FC<FactionRankBarPlotProps> = ({
     },
   ];
 
-  const data = factionRanks.map((node) => {
+  const data = personRanks.map((node) => {
     const colorObj = colors.find((color) => color.factionId === node.factionId);
     const defaultColor = 'hsl(0, 0, 0)';
     const defaultRank = -1;
@@ -60,16 +60,13 @@ export const FactionRankBarPlot: React.FC<FactionRankBarPlotProps> = ({
     return b.rank - a.rank;
   });
 
+  const personRankList: PersonRanked[] = [...personRanks];
+  personRankList.sort((a, b) => a.rank - b.rank);
+
   return (
     <>
-      <h2>Kommunikation der Parteien</h2>
-      <p className="text-larger">
-        Die Kommunikation einer Partei wird hier anhand des PageRank-Algorithmus
-        berechnet. Das bedeutet je mehr eine Partei mit anderen Parteien
-        kommuniziert, desto höher der PageRank-Wert. Die Summe aller
-        Kommunikationen ist immer 1. Folglich muss der Wert immer in relation zu
-        den anderen Werten betrachtet werden
-      </p>
+      <h3>Wer redet am meisten?</h3>
+      <p className="text-larger">PLATZHALTER</p>
       <div style={{ height: 620 }}>
         <ResponsiveBar
           theme={{
@@ -108,13 +105,7 @@ export const FactionRankBarPlot: React.FC<FactionRankBarPlotProps> = ({
           borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
           axisTop={null}
           axisRight={null}
-          axisBottom={{
-            tickSize: 10,
-            tickRotation: -30,
-            tickPadding: 10,
-            legendPosition: 'middle',
-            legendOffset: 32,
-          }}
+          axisBottom={null}
           axisLeft={{
             tickSize: 5,
             tickPadding: 5,

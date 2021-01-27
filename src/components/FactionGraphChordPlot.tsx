@@ -19,18 +19,59 @@ export const FactionGraphCordPlot: React.FC<FactionGraphCordPlotProps> = ({
       return node ? node.sentiment : 0;
     });
   });
-  console.log(matrix);
+
+  const colors = [
+    {
+      factionId: 'F002', // DIE LINKE
+      color: '#C7017F',
+      rank: 0,
+    },
+    {
+      factionId: 'F001', // SPD
+      color: '#E50051',
+      rank: 1,
+    },
+    {
+      factionId: 'F003', // BÜNDNIS90/DIE GRÜNEN
+      color: '#009879',
+      rank: 2,
+    },
+    {
+      factionId: 'F000', // CDU/CSU
+      color: '#706F6F',
+
+      rank: 3,
+    },
+    {
+      factionId: 'F005', // FDP
+      color: '#FFED00',
+      rank: 4,
+    },
+    {
+      factionId: 'F004', // AfD
+      color: '#0085CC',
+      rank: 5,
+    },
+  ];
+
+  const factionColor = factions.map((faction) => {
+    const colorObj = colors.find(
+      (color) => color.factionId === faction.factionId,
+    );
+    const defaultColor = 'hsl(0, 0, 0)';
+    return colorObj ? colorObj.color : defaultColor;
+  });
 
   return (
-    <div style={{ height: 600, color: 'white' }}>
+    <div style={{ height: 600 }}>
       <ResponsiveChord
         matrix={matrix}
         keys={factions.map((f) => f.name)}
-        margin={{ top: 60, right: 60, bottom: 90, left: 60 }}
+        margin={{ top: 60, right: 60, bottom: 100, left: 60 }}
         valueFormat=".2f"
-        padAngle={0.02}
-        innerRadiusRatio={0.96}
-        innerRadiusOffset={0.02}
+        padAngle={0.08}
+        innerRadiusRatio={0.9}
+        innerRadiusOffset={0.05}
         arcOpacity={1}
         arcBorderWidth={1}
         arcBorderColor={{ from: 'color', modifiers: [['darker', 0.4]] }}
@@ -43,7 +84,7 @@ export const FactionGraphCordPlot: React.FC<FactionGraphCordPlotProps> = ({
         labelOffset={12}
         labelRotation={-90}
         labelTextColor={{ from: 'color', modifiers: [['darker', 1]] }}
-        colors={{ scheme: 'nivo' }}
+        colors={factionColor}
         isInteractive={true}
         arcHoverOpacity={1}
         arcHoverOthersOpacity={0.25}
@@ -52,30 +93,6 @@ export const FactionGraphCordPlot: React.FC<FactionGraphCordPlotProps> = ({
         animate={true}
         motionStiffness={90}
         motionDamping={7}
-        legends={[
-          {
-            anchor: 'bottom',
-            direction: 'row',
-            justify: false,
-            translateX: 0,
-            translateY: 70,
-            itemWidth: 80,
-            itemHeight: 14,
-            itemsSpacing: 0,
-            itemTextColor: '#999',
-            itemDirection: 'top-to-bottom',
-            symbolSize: 12,
-            symbolShape: 'circle',
-            effects: [
-              {
-                on: 'hover',
-                style: {
-                  itemTextColor: '#000',
-                },
-              },
-            ],
-          },
-        ]}
       />
     </div>
   );

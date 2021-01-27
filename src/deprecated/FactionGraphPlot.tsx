@@ -8,8 +8,11 @@ export interface FactionGraphProps {
   factionsGraph: FactionGraph[];
 }
 
-export const FactionGraphPlot: React.FC<FactionGraphProps> = ({ faction, factions, factionsGraph }) => {
-
+export const FactionGraphPlot: React.FC<FactionGraphProps> = ({
+  faction,
+  factions,
+  factionsGraph,
+}) => {
   const colors = [
     {
       factionId: 'F002', // DIE LINKE
@@ -44,9 +47,7 @@ export const FactionGraphPlot: React.FC<FactionGraphProps> = ({ faction, faction
   ];
 
   const nodes = factions.map((f) => {
-    const colorObj = colors.find(
-      (color) => color.factionId === f.factionId,
-    );
+    const colorObj = colors.find((color) => color.factionId === f.factionId);
     const defaultColor = 'hsl(0, 0, 0)';
 
     return {
@@ -58,8 +59,8 @@ export const FactionGraphPlot: React.FC<FactionGraphProps> = ({ faction, faction
   });
 
   const links = factionsGraph
-    .filter(node => node.sender === faction.factionId)
-    .map(node => {
+    .filter((node) => node.sender === faction.factionId)
+    .map((node) => {
       return {
         source: node.sender,
         target: node.recipient,

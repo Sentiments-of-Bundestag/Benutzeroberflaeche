@@ -81,7 +81,7 @@ export const PersonTable: React.FC<FactionTableProps> = ({ persons }) => {
   return (
     <>
       <AutoComplete
-        style={{ width: 200 }}
+        style={{ width: '100%', marginBottom: 10, marginTop: 15 }}
         options={options}
         filterOption={(inputValue, option) =>
           option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}

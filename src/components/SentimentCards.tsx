@@ -1,44 +1,34 @@
 import React from 'react';
-import { CardGroup, Card, Row, Col } from 'react-bootstrap';
+import { Card, Col, Row } from 'react-bootstrap';
 
-export interface SentimentCardsProp {}
+export interface SentimentCardsProp {
+  sessionLength: number;
+  periodLength: number;
+}
 
-export const SentimentCards: React.FC<SentimentCardsProp> = ({}) => {
+export const SentimentCards: React.FC<SentimentCardsProp> = ({
+  sessionLength,
+  periodLength,
+}) => {
   return (
     <Row>
       <Col>
         <Card className="text-center">
           <Card.Body>
-            <Card.Title>
-              <span role="img" aria-label="positive" style={{ fontSize: 72 }}>
-                😃
-              </span>
-            </Card.Title>
-            <Card.Text>Positiver</Card.Text>
+            <Card.Text>
+              <h3>Sitzungsprotokollen</h3>
+              <h1>{sessionLength}</h1>
+            </Card.Text>
           </Card.Body>
         </Card>
       </Col>
       <Col>
-        <Card>
+        <Card className="text-center">
           <Card.Body>
-            <Card.Title>
-              <span role="img" aria-label="neural" style={{ fontSize: 72 }}>
-                😐
-              </span>
-            </Card.Title>
-            <Card.Text>0</Card.Text>
-          </Card.Body>
-        </Card>
-      </Col>
-      <Col>
-        <Card>
-          <Card.Body>
-            <Card.Title>
-              <span role="img" aria-label="negative" style={{ fontSize: 72 }}>
-                ☹️
-              </span>
-            </Card.Title>
-            <Card.Text>Negativer Wert</Card.Text>
+            <Card.Text>
+              <h3>Legislaturperioden</h3>
+              <h1>{periodLength}</h1>
+            </Card.Text>
           </Card.Body>
         </Card>
       </Col>

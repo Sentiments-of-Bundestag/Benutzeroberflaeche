@@ -1,12 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Faction, FactionGraph, FactionRanked } from '../types';
+import {
+  Faction,
+  FactionGraph,
+  FactionProportion,
+  FactionRanked,
+} from '../types';
 
 interface FactionState {
   factions: Faction[];
   factionGraphs: FactionGraph[];
+  factionProportion: FactionProportion[];
   factionRanks: FactionRanked[];
   areFactionsLoading: boolean;
+  areFactionProportionLoading: boolean;
   areFactionGraphsLoading: boolean;
   areFactionRanksLoading: boolean;
   error?: string;
@@ -16,9 +23,11 @@ export const initialState: FactionState = {
   factions: [],
   factionGraphs: [],
   factionRanks: [],
+  factionProportion: [],
   areFactionsLoading: false,
   areFactionGraphsLoading: false,
   areFactionRanksLoading: false,
+  areFactionProportionLoading: false,
 };
 
 const factionSlice = createSlice({
@@ -67,6 +76,23 @@ const factionSlice = createSlice({
       state.factionRanks = [];
       state.areFactionRanksLoading = false;
     },
+    getFactionProportionsStart(state) {
+      state.areFactionProportionLoading = true;
+      state.error = undefined;
+      state.factionProportion = [];
+    },
+    getFactionProportionsSuccess(
+      state,
+      { payload }: PayloadAction<FactionProportion[]>,
+    ) {
+      state.factionProportion = payload;
+      state.areFactionProportionLoading = false;
+    },
+    getFactionProportionsFailed(state, action: PayloadAction<string>) {
+      state.error = action.payload;
+      state.factionProportion = [];
+      state.areFactionProportionLoading = false;
+    },
   },
 });
 
@@ -80,6 +106,9 @@ export const {
   getFactionRanksStart,
   getFactionRanksSuccess,
   getFactionRanksFailed,
+  getFactionProportionsFailed,
+  getFactionProportionsStart,
+  getFactionProportionsSuccess,
 } = factionSlice.actions;
 
 export default factionSlice.reducer;

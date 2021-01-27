@@ -7,6 +7,7 @@ import { Layout } from '../components/Layout';
 
 import { getAllSessions } from '../selectors/sessions';
 import { getSessionsStart } from '../slices/sessions';
+import { SentimentCards } from '../components/SentimentCards';
 
 const HomePage: React.FC = () => {
   const history = useHistory();
@@ -33,12 +34,13 @@ const HomePage: React.FC = () => {
           Erfahre mehr und erstelle hier deine eigenen umfassenden Analysen.
         </p>
 
-        <h1>Sitzungsprotokollen: {sessions.length}</h1>
-        <h1>
-          Legislaturperioden:
-          {Array.from(new Set(sessions.map((s) => s.legislativePeriod))).length}
-        </h1>
-
+        <SentimentCards
+          sessionLength={sessions.length}
+          periodLength={
+            Array.from(new Set(sessions.map((s) => s.legislativePeriod))).length
+          }
+        />
+        <br />
         <Button variant="danger" size="lg" onClick={() => toSentiments()}>
           Zu den Analysen
         </Button>

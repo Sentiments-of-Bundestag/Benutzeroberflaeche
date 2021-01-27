@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getFactionGraphsStart,
+  getFactionProportionsStart,
   getFactionRanksStart,
   getFactionsStart,
 } from '../slices/factions';
@@ -15,7 +16,6 @@ import { SessionSelection } from '../components/SessionSelection';
 import { FactionPie } from '../components/FactionPie';
 import { Faction } from '../types';
 import { FactionGraphBarPlot } from '../components/FactionGraphBarPlot';
-import { FactionGraphSwarmPlot } from '../components/FactionGraphSwarmPlot';
 import { PersonTable } from '../components/PersonTable';
 import { getAllPersons } from '../selectors/persons';
 import {
@@ -23,14 +23,19 @@ import {
   getPersonMessagesStart,
   getPersonRanksStart,
 } from '../slices/persons';
-import { FactionGraphPlot } from '../components/FactionGraphPlot';
 import { FactionRankBarPlot } from '../components/FactionRankBarPlot';
-import { SentimentCards } from '../components/SentimentCards';
 import { FactionGraphCordPlot } from '../components/FactionGraphChordPlot';
+import { PersonRankBarPlot } from '../components/PersonRankBarPlot';
+import { FactionPropotionBarPlot } from '../components/FactionPropotionBarPlot';
 
 const FactionsPage: React.FC = () => {
   const dispatch = useDispatch();
-  const { factions, factionGraphs, factionRanks } = useSelector(getAllFactions);
+  const {
+    factions,
+    factionGraphs,
+    factionRanks,
+    factionProportion,
+  } = useSelector(getAllFactions);
   const { personRanks } = useSelector(getAllPersons);
   const { sessions } = useSelector(getAllSessions);
   useEffect(() => {
@@ -41,11 +46,18 @@ const FactionsPage: React.FC = () => {
     dispatch(getPersonGraphsStart());
     dispatch(getPersonMessagesStart());
     dispatch(getPersonRanksStart());
+    dispatch(getFactionProportionsStart());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (factions.length > 0) {
+      setSelectedFaction(factions[0]);
+    }
+  }, [factions]);
 
   const [selectedFaction, setSelectedFaction] = React.useState<
   Faction | undefined
-  >(undefined);
+  >(factions[0]);
 
   return (
     <>
@@ -53,6 +65,7 @@ const FactionsPage: React.FC = () => {
         <SessionSelection sessions={sessions} />
         <FactionPie factions={factions} />
         <FactionRankBarPlot factionRanks={factionRanks} />
+        <FactionPropotionBarPlot factionProportion={factionProportion} />
         <h2>Sentiment Analyse</h2>
         <p className="text-justify">
           Das Wort Sentiment stammt aus dem Französischen und bedeutet einfach
@@ -71,6 +84,18 @@ const FactionsPage: React.FC = () => {
           eingeordnet werden, da zwei positive nur einem negativen Signal-Wort
           gegenüberstehen.
         </p>
+        {factionGraphs.length > 0 && factions.length > 0 ? (
+          <FactionGraphCordPlot
+            factions={factions}
+            factionsGraph={factionGraphs}
+          />
+        ) : null}
+        <p className="text-justify">
+          Dank der Sentiment-Analyse erfahren wir nun, wie Stimmungen der
+          Parteien zueinander sind. Wählen Sie dazu eine Partei aus, um die
+          Stimmung der ausgewählten Partei zu den anderen Parteien genauer zu
+          betrachten.
+        </p>
         <FactionNavigation
           factions={factions}
           selectFaction={setSelectedFaction}
@@ -82,22 +107,11 @@ const FactionsPage: React.FC = () => {
               factions={factions}
               factionsGraph={factionGraphs}
             />
-            <FactionGraphPlot
-              faction={selectedFaction}
-              factions={factions}
-              factionsGraph={factionGraphs}
-            />
-            <FactionGraphSwarmPlot
-              faction={selectedFaction}
-              factions={factions}
-              factionsGraph={factionGraphs}
-            />
           </>
         ) : null}
-        <FactionGraphCordPlot
-          factions={factions}
-          factionsGraph={factionGraphs}
-        />
+
+        <h2>Personen</h2>
+        <PersonRankBarPlot personRanks={personRanks} />
         <PersonTable persons={personRanks} />
       </Layout>
     </>

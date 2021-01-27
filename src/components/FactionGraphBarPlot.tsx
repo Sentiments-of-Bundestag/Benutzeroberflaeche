@@ -1,7 +1,6 @@
 import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 import { Faction, FactionGraph } from '../types';
-import { SentimentCards } from './SentimentCards';
 
 export interface FactionGraphBarPlotProps {
   factions: Faction[];
@@ -53,16 +52,24 @@ export const FactionGraphBarPlot: React.FC<FactionGraphBarPlotProps> = ({
         color,
       };
     });
+
   return (
     <>
-      <h1>Sentiment von {faction.name} zu anderen Parteien</h1>
-
-      <div style={{ height: 600 }}>
+      <h3>Sentiment von {faction.name} zu anderen Parteien</h3>
+      <p className="text-larger">PLATZHALTER</p>
+      <div style={{ height: 400 }}>
         <ResponsiveBar
+          theme={{
+            fontSize: 18,
+          }}
+          label={(d) => Number(d.value).toFixed(2)}
+          labelTextColor="#000000"
+          minValue={-1}
+          maxValue={1}
           data={dataTo}
           keys={['sentiment']}
           indexBy="recipient"
-          margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+          margin={{ top: 10, right: 130, bottom: 50, left: 60 }}
           padding={0.3}
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
@@ -105,22 +112,28 @@ export const FactionGraphBarPlot: React.FC<FactionGraphBarPlotProps> = ({
             legendPosition: 'middle',
             legendOffset: -40,
           }}
-          enableLabel={false}
+          enableLabel={true}
           labelSkipWidth={14}
           labelSkipHeight={12}
-          labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
           animate={true}
           motionStiffness={90}
           motionDamping={15}
         />
       </div>
-      <h1>Sentiment von anderen Parteien zu {faction.name}</h1>
-      <div style={{ height: 600 }}>
+      <h3>Sentiment von anderen Parteien zu {faction.name}</h3>
+      <p className="text-larger">PLATZHALTER</p>
+      <div style={{ height: 400 }}>
         <ResponsiveBar
+          theme={{
+            fontSize: 18,
+          }}
+          label={(d) => Number(d.value).toFixed(2)}
+          minValue={-1}
+          maxValue={1}
           data={dataFrom}
           keys={['sentiment']}
           indexBy="sender"
-          margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+          margin={{ top: 10, right: 130, bottom: 50, left: 60 }}
           padding={0.3}
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
@@ -163,10 +176,10 @@ export const FactionGraphBarPlot: React.FC<FactionGraphBarPlotProps> = ({
             legendPosition: 'middle',
             legendOffset: -40,
           }}
-          enableLabel={false}
+          enableLabel={true}
           labelSkipWidth={14}
           labelSkipHeight={12}
-          labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+          labelTextColor="#000000"
           animate={true}
           motionStiffness={90}
           motionDamping={15}

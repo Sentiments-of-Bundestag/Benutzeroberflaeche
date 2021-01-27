@@ -7,37 +7,36 @@ export interface FractionPieProps {
 }
 
 export const FactionPie: React.FC<FractionPieProps> = ({ factions }) => {
-  // TODO: adjust color
   const colors = [
     {
       factionId: 'F002', // DIE LINKE
-      color: 'hsl(279,100%,50%)',
+      color: '#C7017F',
       rank: 0,
     },
     {
       factionId: 'F001', // SPD
-      color: 'hsl(0,100%,50%)',
+      color: '#E50051',
       rank: 1,
     },
     {
       factionId: 'F003', // BÜNDNIS90/DIE GRÜNEN
-      color: 'hsl(105,70%,50%)',
+      color: '#009879',
       rank: 2,
     },
     {
       factionId: 'F000', // CDU/CSU
-      color: 'hsl(0,0%,0%)',
+      color: '#706F6F',
 
       rank: 3,
     },
     {
       factionId: 'F005', // FDP
-      color: 'hsl(52,100%,50%)',
+      color: '#FFED00',
       rank: 4,
     },
     {
       factionId: 'F004', // AfD
-      color: 'hsl(211,100%,50%)',
+      color: '#0085CC',
       rank: 5,
     },
   ];
@@ -85,21 +84,26 @@ export const FactionPie: React.FC<FractionPieProps> = ({ factions }) => {
 
   const factionList = [...factions];
   factionList.sort((a, b) => b.size - a.size);
-  const biggestFaction = factionList.length ? factionList[0] : undefined;
   return (
     <>
       <h2>Zusammensetzung des Bundestages</h2>
       <p className="text-justify">
-        {`Die Zusammensetzung des Bundestages war zu dieser Legislaturperiode 
-          folgendermaßen gewählt. Die Partei ${
-            biggestFaction ? biggestFaction.name : ''
-          } 
-          hat mit ${
-            biggestFaction ? biggestFaction.size : ''
-          }  die meisten Stimmen gehabt.`}
+        Der Bundestages bestand während der Legislaturperiode aus den foldenden{' '}
+        <b>{factionList.length}</b> Parteien:
+        <ul>
+          {factionList.map((faction) => (
+            <li key={faction.factionId}>
+              <b>{faction.name}</b> mit <b>{faction.size}</b> Stimmen
+            </li>
+          ))}
+        </ul>
+        Im folgenden Pie-Chart ist die Sitzverteilung visualisiert.
       </p>
       <div style={{ height: 500 }}>
         <ResponsivePie
+          theme={{
+            fontSize: 18,
+          }}
           data={data}
           margin={{ top: 40, right: 80, bottom: 20, left: 80 }}
           startAngle={105}
@@ -112,16 +116,18 @@ export const FactionPie: React.FC<FractionPieProps> = ({ factions }) => {
           borderWidth={2}
           borderColor={{ theme: 'grid.line.stroke' }}
           enableRadialLabels={true}
+          enableSliceLabels={true}
+          sliceLabelsRadiusOffset={0.5}
+          sliceLabel="value"
+          sliceLabelsTextColor="#000000"
+          sliceLabelsSkipAngle={0}
           radialLabelsTextColor="#333333"
           radialLabelsLinkColor={{ from: 'color' }}
-          sliceLabel="value"
-          sliceLabelsSkipAngle={10}
-          sliceLabelsTextColor={{ theme: 'background' }}
           layers={[
             'slices',
-            'sliceLabels',
             'radialLabels',
             'legends',
+            'sliceLabels',
             CenteredMetric,
           ]}
         />
