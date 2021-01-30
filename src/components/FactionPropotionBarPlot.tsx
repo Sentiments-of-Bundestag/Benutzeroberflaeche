@@ -104,7 +104,12 @@ export const FactionPropotionBarPlot: React.FC<FactionProportionBarPlotProps> = 
           keys={['rang']}
           label={(d) => Number(d.value).toFixed(2)}
           indexBy="faction"
-          margin={{ top: 10, right: 130, bottom: 140, left: 60 }}
+          margin={{ top: 20, right: 20, bottom: 150, left: 80 }}
+          tooltip={(d) => (
+            <strong>
+              Redeanteil: {d.value} <br />
+            </strong>
+          )}
           padding={0.3}
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}

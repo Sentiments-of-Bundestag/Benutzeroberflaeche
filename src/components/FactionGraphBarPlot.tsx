@@ -31,6 +31,7 @@ export const FactionGraphBarPlot: React.FC<FactionGraphBarPlotProps> = ({
         recipient: recipientFaction ? recipientFaction.name : node.recipient,
         sentiment: node.sentiment,
         color,
+        count: node.count,
       };
     });
 
@@ -50,8 +51,19 @@ export const FactionGraphBarPlot: React.FC<FactionGraphBarPlotProps> = ({
         sender: senderFaction ? senderFaction.name : node.sender,
         sentiment: node.sentiment,
         color,
+        count: node.count,
       };
     });
+
+  dataTo.sort((a, b) => {
+    return b.sentiment - a.sentiment;
+  });
+
+
+  dataFrom.sort((a, b) => {
+    return b.sentiment - a.sentiment;
+  });
+
 
   return (
     <>
@@ -69,11 +81,16 @@ export const FactionGraphBarPlot: React.FC<FactionGraphBarPlotProps> = ({
           data={dataTo}
           keys={['sentiment']}
           indexBy="recipient"
-          margin={{ top: 10, right: 130, bottom: 50, left: 60 }}
+          margin={{ top: 20, right: 20, bottom: 50, left: 80 }}
           padding={0.3}
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
           colors={{ datum: 'data.color' }}
+          tooltip={(data) => (
+            <strong>
+              Sentiment: {data.value} <br />
+            </strong>
+          )}
           defs={[
             {
               id: 'dots',
@@ -131,9 +148,14 @@ export const FactionGraphBarPlot: React.FC<FactionGraphBarPlotProps> = ({
           minValue={-1}
           maxValue={1}
           data={dataFrom}
+          tooltip={(data) => (
+            <strong>
+              Sentiment: {data.value} <br />
+            </strong>
+          )}
           keys={['sentiment']}
           indexBy="sender"
-          margin={{ top: 10, right: 130, bottom: 50, left: 60 }}
+          margin={{ top: 20, right: 20, bottom: 50, left: 80 }}
           padding={0.3}
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}

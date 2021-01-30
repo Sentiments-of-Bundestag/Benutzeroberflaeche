@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Input, Table, AutoComplete } from 'antd';
-import { Person, PersonGraph, PersonRanked } from '../types';
+import { Faction, Person, PersonGraph, PersonRanked } from '../types';
 import { PersonGraphBarPlot } from './PersonGraphBarPlot';
 
 export interface FactionTableProps {
   personsRanked: PersonRanked[];
   persons: Person[],
   personsGraph: PersonGraph[];
+  factions: Faction[];
 }
 
 export const PersonTable: React.FC<FactionTableProps> =
-  ({ persons, personsGraph, personsRanked }) => {
+  ({ persons, personsGraph, personsRanked, factions }) => {
     const columns = [
       {
         title: 'Rolle',
@@ -64,7 +65,7 @@ export const PersonTable: React.FC<FactionTableProps> =
         filterMultiple: true,
       },
       {
-        title: 'Rang',
+        title: 'Einfluss',
         dataIndex: 'rank',
         key: 'rank',
         // @ts-ignore
@@ -84,8 +85,21 @@ export const PersonTable: React.FC<FactionTableProps> =
 
     const [selectedPerson, setSelectedPerson] =
     React.useState<PersonRanked | undefined>(undefined);
+
+
+    useEffect(() => {
+      if (personsRanked.length > 0) {
+        setSelectedPerson(personsRanked[0]);
+      }
+    }, [personsRanked]);
+
     return (
       <>
+        <h2>Sentiment Analyse für Abgeordnete</h2>
+        <p>
+          Wähle einen Abgeordneten aus um seine Sentiments dazustellen
+        </p>
+
         <AutoComplete
           style={{ width: '100%', marginBottom: 10, marginTop: 15 }}
           options={options}
@@ -109,21 +123,34 @@ export const PersonTable: React.FC<FactionTableProps> =
           />
         </AutoComplete>
         <Table
-          rowSelection={{
-            type: 'radio',
-            onChange: (selectedRowKeys: React.Key[], selectedRows: PersonRanked[]) => {
-              setSelectedPerson(selectedRows[0]);
-            },
+          // rowSelection={{
+          //   type: 'radio',
+          //   onChange: (selectedRowKeys: React.Key[], selectedRows: PersonRanked[]) => {
+          //     setSelectedPerson(selectedRows[0]);
+          //   },
+          // }}
+          onRow={(record) => {
+            return {
+              onClick: () => setSelectedPerson(record),
+              onDoubleClick: () => setSelectedPerson(undefined),
+            };
           }}
           rowKey={(record) => record.speakerId}
           dataSource={filteredPersons === undefined ? personsRanked : filteredPersons}
           columns={columns}
+          rowClassName={record => {
+            return selectedPerson !== undefined && record.speakerId === selectedPerson?.speakerId?
+              'selectedTableRow':
+              '';
+          }}
         />
         {selectedPerson?
           <PersonGraphBarPlot
+            factions={factions}
             persons={persons}
             person={selectedPerson}
             personsGraph={personsGraph}
+            personsRanked={personsRanked}
           />
           : null}
       </>

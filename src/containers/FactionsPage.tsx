@@ -36,7 +36,7 @@ const FactionsPage: React.FC = () => {
     factionRanks,
     factionProportion,
   } = useSelector(getAllFactions);
-  const { personRanks, personGraphs, persons } = useSelector(getAllPersons);
+  const { personRanks, personGraphs } = useSelector(getAllPersons);
   const { sessions } = useSelector(getAllSessions);
   useEffect(() => {
     dispatch(getFactionsStart());
@@ -110,9 +110,9 @@ const FactionsPage: React.FC = () => {
           </>
         ) : null}
 
-        <h2>Personen</h2>
-        <PersonRankBarPlot personRanks={personRanks} />
+        <PersonRankBarPlot personRanks={personRanks} faction={selectedFaction} />
         <PersonTable
+          factions={factions}
           personsGraph={personGraphs}
           personsRanked={personRanks}
           persons={personRanks}

@@ -21,6 +21,7 @@
     "@nivo/heatmap": "^0.67.0",
     "@nivo/network": "^0.67.0",
     "@nivo/pie": "^0.67.0",
+    "@nivo/radar": "^0.67.0",
     "@nivo/swarmplot": "^0.67.0",
     "@reduxjs/toolkit": "^1.5.0",
     "@testing-library/jest-dom": "^5.11.6",

@@ -67,7 +67,7 @@ export const FactionGraphCordPlot: React.FC<FactionGraphCordPlotProps> = ({
       <ResponsiveChord
         matrix={matrix}
         keys={factions.map((f) => f.name)}
-        margin={{ top: 60, right: 60, bottom: 100, left: 60 }}
+        margin={{ top: 20, right: 20, bottom: 80, left: 80 }}
         valueFormat=".2f"
         padAngle={0.08}
         innerRadiusRatio={0.9}

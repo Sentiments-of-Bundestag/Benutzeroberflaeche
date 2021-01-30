@@ -46,3 +46,14 @@ a:hover {
 .text-larger {
   font-size: large;
 }
+
+.selectedTableRow{
+  background-color: #d5d5d5
+}
+.ant-table-tbody>.selectedTableRow:hover>td{
+  background-color: #d5d5d5
+}
+
+.ant-tag{
+  font-size: large;
+}

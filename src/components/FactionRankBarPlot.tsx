@@ -79,11 +79,16 @@ export const FactionRankBarPlot: React.FC<FactionRankBarPlotProps> = ({
           keys={['rang']}
           label={(d) => Number(d.value).toFixed(2)}
           indexBy="faction"
-          margin={{ top: 10, right: 130, bottom: 140, left: 60 }}
+          margin={{ top: 20, right: 20, bottom: 150, left: 80 }}
           padding={0.3}
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
           colors={{ datum: 'data.color' }}
+          tooltip={(d) => (
+            <strong>
+              Kommunikation: {d.value} <br />
+            </strong>
+          )}
           defs={[
             {
               id: 'dots',

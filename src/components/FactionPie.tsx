@@ -105,7 +105,7 @@ export const FactionPie: React.FC<FractionPieProps> = ({ factions }) => {
             fontSize: 18,
           }}
           data={data}
-          margin={{ top: 40, right: 80, bottom: 20, left: 80 }}
+          margin={{ top: 20, right: 20, bottom: 20, left: 80 }}
           startAngle={105}
           endAngle={-105}
           sortByValue={false}
