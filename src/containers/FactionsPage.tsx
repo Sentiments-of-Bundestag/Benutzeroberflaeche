@@ -109,14 +109,17 @@ const FactionsPage: React.FC = () => {
             />
           </>
         ) : null}
-
-        <PersonRankBarPlot personRanks={personRanks} faction={selectedFaction} />
-        <PersonTable
-          factions={factions}
-          personsGraph={personGraphs}
-          personsRanked={personRanks}
-          persons={personRanks}
-        />
+        {factions.length > 0 && personGraphs.length > 0 && personRanks.length > 0 && personRanks.length > 0?
+          <>
+            <PersonRankBarPlot personRanks={personRanks} faction={selectedFaction} />
+            <PersonTable
+              factions={factions}
+              personsGraph={personGraphs}
+              personsRanked={personRanks}
+              persons={personRanks}
+            />
+          </>
+          : null}
       </Layout>
     </>
   );
