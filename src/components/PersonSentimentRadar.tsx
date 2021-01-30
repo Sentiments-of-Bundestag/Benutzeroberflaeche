@@ -32,7 +32,7 @@ export const PersonSentimentRadar: React.FC<FractionPieProps> = ({
       .filter(node => persons.find(p => p.speakerId === node.recipient && p.factionId === faction.factionId))
       .map(X => X.sentiment)
     ;
-    const average = personGraphForFaction.reduce((a, b) => a + b, 0) / personGraphForFaction.length;
+    const average = personGraphForFaction.length > 0 ?  personGraphForFaction.reduce((a, b) => a + b, 0) / personGraphForFaction.length : 0;
 
     return {
       'factionName': faction.name,
