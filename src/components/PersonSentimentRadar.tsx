@@ -42,7 +42,7 @@ export const PersonSentimentRadar: React.FC<FractionPieProps> = ({
 
   return (
     <>
-      <div style={{ height: 500 }}>
+      <div style={{ height: 600 }}>
         <ResponsiveRadar
           data={data}
           theme={{
@@ -51,7 +51,7 @@ export const PersonSentimentRadar: React.FC<FractionPieProps> = ({
           keys={['sentiment' ]}
           indexBy="factionName"
           maxValue="auto"
-          margin={{ top: 20, right: 80, bottom: 80, left: 80 }}
+          margin={{ top: 80, right: 20, bottom: 80, left: 80 }}
           curve="linearClosed"
           borderWidth={2}
           borderColor={{ from: 'color' }}
