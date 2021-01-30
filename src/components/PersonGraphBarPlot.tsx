@@ -121,7 +121,7 @@ export const PersonGraphBarPlot: React.FC<PersonGraphBarPlotProps> = ({
 
   const personSentiment = personsGraph
     .filter(node => node.sender === person.speakerId)
-    .map(node => node.sentiment).reduce((a, b) => a + b);
+    .map(node => node.sentiment).reduce((a, b) => a + b, 0);
 
   return (
     <>
