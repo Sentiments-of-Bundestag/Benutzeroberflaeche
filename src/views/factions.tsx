@@ -37,6 +37,7 @@ import FactionSelection from '../components/selections/FactionSelection';
 
 // Types
 import { Faction, FactionProportion, Session } from '../types';
+import FactionGraphBarPlot from '../components/plots/FactionGraphBarPlot';
 
 interface FactionsProps {}
 
@@ -191,6 +192,15 @@ const Factions: React.FC<FactionsProps> = () => {
           anderen Parteien
         </h3>
         {renderSentimentFromText()}
+        {selectedFaction ? (
+          <FactionGraphBarPlot
+            factions={factions}
+            factionsGraph={factionGraphs}
+            faction={selectedFaction}
+          />
+        ) : (
+          <Skeleton />
+        )}
       </AppLayout>
     </>
   );
