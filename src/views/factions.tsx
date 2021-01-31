@@ -27,7 +27,7 @@ import AppLayout from '../layout/AppLayout';
 
 // Components
 import LegislativePeriodSelection from '../components/selections/LegislativePeriodSelection';
-import ToolTipWrapper from '../components/ToolTipWrapper';
+import ToolTipWrapper from '../components/common/ToolTipWrapper';
 
 // Plot related components
 import FactionPiePlot from '../components/plots/FactionPiePlot';

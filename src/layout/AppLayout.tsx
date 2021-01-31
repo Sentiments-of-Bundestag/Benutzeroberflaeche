@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
+import { Header } from '../components/common/Header';
+import { Footer } from '../components/common/Footer';
 
 export interface AppLayoutProps {
   children?: React.ReactNode;
