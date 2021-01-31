@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Col, Row } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import { Button, Col, Row } from 'react-bootstrap';
 
 import { getSessionsStart } from '../slices/sessions';
 import { getAllSessions } from '../selectors/sessions';
@@ -13,11 +14,19 @@ interface LandingProps {}
 
 const Landing: React.FC<LandingProps> = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { sessions, areSessionsLoading } = useSelector(getAllSessions);
+  const periodCount = Array.from(
+    new Set(sessions.map((s) => s.legislativePeriod)),
+  ).length;
 
   useEffect(() => {
     dispatch(getSessionsStart());
   }, [dispatch]);
+
+  const redirectTo = (route: string) => {
+    history.push(route);
+  };
 
   return (
     <>
@@ -34,10 +43,7 @@ const Landing: React.FC<LandingProps> = () => {
         <Row>
           <Col>
             <KpiCard
-              kpi={
-                Array.from(new Set(sessions.map((s) => s.legislativePeriod)))
-                  .length
-              }
+              kpi={periodCount}
               description="Legislaturperioden"
               loading={areSessionsLoading}
             />
@@ -50,6 +56,23 @@ const Landing: React.FC<LandingProps> = () => {
             />
           </Col>
         </Row>
+        <br />
+        <Button
+          variant="primary"
+          size="lg"
+          block
+          onClick={() => redirectTo('factions')}
+        >
+          Weiter zu den Parteien
+        </Button>
+        <Button
+          variant="secondary"
+          size="lg"
+          block
+          onClick={() => redirectTo('persons')}
+        >
+          Weiter zu den Abgeordneten
+        </Button>
         <p className="text-justify">
           <br />
           Die Projektarbeit wurde im Rahmen des Moduls Information Systems unter
