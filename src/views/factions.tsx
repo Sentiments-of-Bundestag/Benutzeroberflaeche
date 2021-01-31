@@ -144,7 +144,7 @@ const Factions: React.FC<FactionsProps> = () => {
         </p>
         <br />
         <p className="text-justify">
-          Im Sehnendiagramm werden sind die Stimmungen der Interaktionen zwischen den Parteien
+          Im Sehnendiagramm werden die Stimmungen der Interaktionen zwischen den Parteien
           abgebildet. Die auf dem Rand liegenden Balken geben eine Gesamtstimmung der Partei wieder.
         </p>
       </>
