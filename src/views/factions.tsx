@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Skeleton } from 'antd';
 
+// Reducer Actions
 import {
   getFactionGraphsStart,
   getFactionProportionsStart,
@@ -14,13 +14,21 @@ import {
   getPersonRanksStart,
 } from '../slices/persons';
 import { getSessionsStart } from '../slices/sessions';
+
+// Selectors
 import { getAllSessions } from '../selectors/sessions';
 import { getAllFactions } from '../selectors/factions';
 
+// Layout
 import AppLayout from '../layout/AppLayout';
+
+// Components
 import { SessionSelection } from '../components/SessionSelection';
 import LegislativePeriodSelection from '../components/selections/LegislativePeriodSelection';
 import ToolTipWrapper from '../components/ToolTipWrapper';
+import FactionPiePlot from '../components/plots/FactionPiePlot';
+
+// Types
 import { Session } from '../types';
 
 interface FactionsProps {}
@@ -109,6 +117,7 @@ const Factions: React.FC<FactionsProps> = () => {
         {renderLegislativePeriodText()}
         <h2>Zusammensetzung des Bundestages</h2>
         {renderBundestagZusammensetzungText()}
+        <FactionPiePlot factions={factions} />
       </AppLayout>
     </>
   );
