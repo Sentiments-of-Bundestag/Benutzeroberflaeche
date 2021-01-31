@@ -20,6 +20,7 @@ import { getSessionsStart } from '../slices/sessions';
 // Selectors
 import { getAllSessions } from '../selectors/sessions';
 import { getAllFactions } from '../selectors/factions';
+import { getAllPersons } from '../selectors/persons';
 
 // Layout
 import AppLayout from '../layout/AppLayout';
@@ -38,6 +39,7 @@ import FactionSelection from '../components/selections/FactionSelection';
 // Types
 import { Faction, FactionProportion, Session } from '../types';
 import FactionGraphBarPlot from '../components/plots/FactionGraphBarPlot';
+import PersonRankBarPlot from '../components/plots/PersonRankBarPlot';
 
 interface FactionsProps {}
 
@@ -45,6 +47,7 @@ const Factions: React.FC<FactionsProps> = () => {
   const dispatch = useDispatch();
   const { sessions, areSessionsLoading } = useSelector(getAllSessions);
   const { factions, factionGraphs, factionRanks, factionProportion } = useSelector(getAllFactions);
+  const { personRanks, personGraphs } = useSelector(getAllPersons);
   const legislativePeriods = Array.from(new Set(sessions.map((s) => s.legislativePeriod)));
   const [selectedFaction, setSelectedFaction] = React.useState<Faction | undefined>(undefined);
 
@@ -64,6 +67,7 @@ const Factions: React.FC<FactionsProps> = () => {
     if (factions.length > 0 && selectedFaction === undefined) {
       setSelectedFaction(factions[0]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [factions]);
 
   const renderLegislativePeriodText = (): React.ReactNode => {
@@ -160,6 +164,16 @@ const Factions: React.FC<FactionsProps> = () => {
     );
   };
 
+  const renderFactionPersonRankText = (): React.ReactNode => {
+    return (
+      <div className="text-justify">
+        Bei der Analyse der Kommentare wurde ebenfalls erforscht, welche Abgeordneten einer Partei
+        am meisten Interaktionen mit anderen aktiven Abgeordneten hatte. Diese Informationen wurden
+        über den Pagerank Algorithmus ermittelt.
+      </div>
+    );
+  };
+
   return (
     <>
       <AppLayout>
@@ -198,6 +212,13 @@ const Factions: React.FC<FactionsProps> = () => {
             factionsGraph={factionGraphs}
             faction={selectedFaction}
           />
+        ) : (
+          <Skeleton />
+        )}
+        <h3>Einflussreichste Personen der Partei SPD</h3>
+        {renderFactionPersonRankText()}
+        {selectedFaction !== undefined && personRanks.length ? (
+          <PersonRankBarPlot faction={selectedFaction} personRanks={personRanks} />
         ) : (
           <Skeleton />
         )}
