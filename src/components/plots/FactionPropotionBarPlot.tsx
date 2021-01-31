@@ -6,7 +6,7 @@ export interface FactionProportionBarPlotProps {
   factionProportion: FactionProportion[];
 }
 
-export const FactionPropotionBarPlot: React.FC<FactionProportionBarPlotProps> = ({
+const FactionPropotionBarPlot: React.FC<FactionProportionBarPlotProps> = ({
   factionProportion,
 }) => {
   const colors = [
@@ -131,3 +131,5 @@ export const FactionPropotionBarPlot: React.FC<FactionProportionBarPlotProps> = 
     </>
   );
 };
+
+export default FactionPropotionBarPlot;
