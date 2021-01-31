@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from 'react-bootstrap';
+import { Skeleton } from 'antd';
 
 // Reducer Actions
-import { Skeleton } from 'antd';
 import {
   getFactionGraphsStart,
   getFactionProportionsStart,
@@ -26,7 +26,6 @@ import { getAllPersons } from '../selectors/persons';
 import AppLayout from '../layout/AppLayout';
 
 // Components
-import { SessionSelection } from '../components/SessionSelection';
 import LegislativePeriodSelection from '../components/selections/LegislativePeriodSelection';
 import ToolTipWrapper from '../components/ToolTipWrapper';
 
@@ -37,7 +36,7 @@ import FactionGraphCordPlot from '../components/plots/FactionGraphCordPlot';
 import FactionSelection from '../components/selections/FactionSelection';
 
 // Types
-import { Faction, FactionProportion, Session } from '../types';
+import { Faction, FactionProportion } from '../types';
 import FactionGraphBarPlot from '../components/plots/FactionGraphBarPlot';
 import PersonRankBarPlot from '../components/plots/PersonRankBarPlot';
 
@@ -46,8 +45,8 @@ interface FactionsProps {}
 const Factions: React.FC<FactionsProps> = () => {
   const dispatch = useDispatch();
   const { sessions, areSessionsLoading } = useSelector(getAllSessions);
-  const { factions, factionGraphs, factionRanks, factionProportion } = useSelector(getAllFactions);
-  const { personRanks, personGraphs } = useSelector(getAllPersons);
+  const { factions, factionGraphs, factionProportion } = useSelector(getAllFactions);
+  const { personRanks } = useSelector(getAllPersons);
   const legislativePeriods = Array.from(new Set(sessions.map((s) => s.legislativePeriod)));
   const [selectedFaction, setSelectedFaction] = React.useState<Faction | undefined>(undefined);
 
@@ -177,7 +176,6 @@ const Factions: React.FC<FactionsProps> = () => {
   return (
     <>
       <AppLayout>
-        <SessionSelection sessions={sessions} />
         <ToolTipWrapper text="Wähle zuerst eine Legislaturperiode aus, die du genauer betrachten möchtest.">
           <LegislativePeriodSelection
             legislativePeriods={legislativePeriods}
