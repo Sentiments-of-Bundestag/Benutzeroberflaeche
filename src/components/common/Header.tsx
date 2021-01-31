@@ -16,9 +16,6 @@ export const Header: React.FC<HeaderProps> = ({ links }) => {
       <Navbar.Collapse>
         <Nav className="mr-auto" />
         <Nav>
-          {/*          <Nav.Link>
-            Über uns
-          </Nav.Link> */}
           <Nav.Link
             target="_blank"
             href="https://github.com/orgs/Sentiments-of-Bundestag/dashboard"

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Alert } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import { Alert, Button } from 'react-bootstrap';
 import { Skeleton } from 'antd';
 
 // Reducer Actions
@@ -28,6 +29,7 @@ interface PersonsProps {}
 
 const Persons: React.FC<PersonsProps> = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { factions } = useSelector(getAllFactions);
   const { personRanks, personGraphs } = useSelector(getAllPersons);
 
@@ -41,6 +43,11 @@ const Persons: React.FC<PersonsProps> = () => {
     dispatch(getPersonRanksStart());
     dispatch(getFactionProportionsStart());
   }, [dispatch]);
+
+  const redirectTo = (route: string) => {
+    history.push(route);
+  };
+
   return (
     <>
       <AppLayout>
@@ -59,6 +66,12 @@ const Persons: React.FC<PersonsProps> = () => {
         ) : (
           <Skeleton active />
         )}
+        <Button variant="primary" size="lg" block onClick={() => redirectTo('factions')}>
+          Weiter zu den Parteien
+        </Button>
+        <Button variant="secondary" size="lg" block onClick={() => redirectTo('/')}>
+          Zurück zur Startseite
+        </Button>
       </AppLayout>
     </>
   );

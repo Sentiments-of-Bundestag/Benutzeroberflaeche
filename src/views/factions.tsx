@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Alert } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import { Alert, Button } from 'react-bootstrap';
 import { Skeleton } from 'antd';
 
 // Reducer Actions
@@ -44,6 +45,7 @@ interface FactionsProps {}
 
 const Factions: React.FC<FactionsProps> = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { sessions, areSessionsLoading } = useSelector(getAllSessions);
   const { factions, factionGraphs, factionProportion } = useSelector(getAllFactions);
   const { personRanks } = useSelector(getAllPersons);
@@ -68,6 +70,10 @@ const Factions: React.FC<FactionsProps> = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [factions]);
+
+  const redirectTo = (route: string) => {
+    history.push(route);
+  };
 
   const renderLegislativePeriodText = (): React.ReactNode => {
     const firstDate = sessions.length ? new Date(Date.parse(sessions[0].startDateTime)) : undefined;
@@ -220,6 +226,12 @@ const Factions: React.FC<FactionsProps> = () => {
         ) : (
           <Skeleton />
         )}
+        <Button variant="primary" size="lg" block onClick={() => redirectTo('persons')}>
+          Weiter zu den Abgeordneten
+        </Button>
+        <Button variant="secondary" size="lg" block onClick={() => redirectTo('/')}>
+          Zurück zur Startseite
+        </Button>
       </AppLayout>
     </>
   );
