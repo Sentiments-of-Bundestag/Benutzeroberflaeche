@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { config } from 'dotenv';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
-import { Routes } from './routes';
+import App from './views/index';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
@@ -16,9 +15,7 @@ config();
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <Router>
-        <Routes />
-      </Router>
+      <App />
     </Provider>,
     document.getElementById('root'),
   );
@@ -27,7 +24,7 @@ const render = () => {
 render();
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
-  module.hot.accept('./routes', render);
+  module.hot.accept('./views/index', render);
 }
 
 // If you want to start measuring performance in your app, pass a function

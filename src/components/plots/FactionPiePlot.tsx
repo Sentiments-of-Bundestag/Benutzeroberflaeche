@@ -1,12 +1,12 @@
 import React from 'react';
 import { ResponsivePie } from '@nivo/pie';
-import { Faction } from '../types';
+import { Faction } from '../../types';
 
-export interface FractionPieProps {
+export interface FactionPiePlotProps {
   factions: Faction[];
 }
 
-export const FactionPie: React.FC<FractionPieProps> = ({ factions }) => {
+const FactionPiePlot: React.FC<FactionPiePlotProps> = ({ factions }) => {
   const colors = [
     {
       factionId: 'F002', // DIE LINKE
@@ -86,19 +86,6 @@ export const FactionPie: React.FC<FractionPieProps> = ({ factions }) => {
   factionList.sort((a, b) => b.size - a.size);
   return (
     <>
-      <h2>Zusammensetzung des Bundestages</h2>
-      <p className="text-justify">
-        Der Bundestages bestand während der Legislaturperiode aus den foldenden{' '}
-        <b>{factionList.length}</b> Parteien:
-        <ul>
-          {factionList.map((faction) => (
-            <li key={faction.factionId}>
-              <b>{faction.name}</b> mit <b>{faction.size}</b> Stimmen
-            </li>
-          ))}
-        </ul>
-        Im folgenden Pie-Chart ist die Sitzverteilung visualisiert.
-      </p>
       <div style={{ height: 500 }}>
         <ResponsivePie
           theme={{
@@ -135,3 +122,5 @@ export const FactionPie: React.FC<FractionPieProps> = ({ factions }) => {
     </>
   );
 };
+
+export default FactionPiePlot;

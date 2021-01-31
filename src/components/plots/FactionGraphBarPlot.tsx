@@ -1,6 +1,6 @@
 import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
-import { Faction, FactionGraph } from '../types';
+import { Faction, FactionGraph } from '../../types';
 
 export interface FactionGraphBarPlotProps {
   factions: Faction[];
@@ -8,7 +8,7 @@ export interface FactionGraphBarPlotProps {
   faction: Faction;
 }
 
-export const FactionGraphBarPlot: React.FC<FactionGraphBarPlotProps> = ({
+const FactionGraphBarPlot: React.FC<FactionGraphBarPlotProps> = ({
   factions,
   faction,
   factionsGraph,
@@ -16,9 +16,7 @@ export const FactionGraphBarPlot: React.FC<FactionGraphBarPlotProps> = ({
   const dataTo = factionsGraph
     .filter((node) => node.sender === faction.factionId)
     .map((node) => {
-      const recipientFaction = factions.find(
-        (f) => f.factionId === node.recipient,
-      );
+      const recipientFaction = factions.find((f) => f.factionId === node.recipient);
 
       let color = 'rgb(0,0,0)';
       if (node.sentiment > 0) {
@@ -59,16 +57,12 @@ export const FactionGraphBarPlot: React.FC<FactionGraphBarPlotProps> = ({
     return b.sentiment - a.sentiment;
   });
 
-
   dataFrom.sort((a, b) => {
     return b.sentiment - a.sentiment;
   });
 
-
   return (
     <>
-      <h3>Sentiment von {faction.name} zu anderen Parteien</h3>
-      <p className="text-larger">PLATZHALTER</p>
       <div style={{ height: 400 }}>
         <ResponsiveBar
           theme={{
@@ -138,7 +132,9 @@ export const FactionGraphBarPlot: React.FC<FactionGraphBarPlotProps> = ({
         />
       </div>
       <h3>Sentiment von anderen Parteien zu {faction.name}</h3>
-      <p className="text-larger">PLATZHALTER</p>
+      <p className="text-larger">
+        Stimmungsbild der Kommentare anderer Parteien gegenüber der SPD.
+      </p>
       <div style={{ height: 400 }}>
         <ResponsiveBar
           theme={{
@@ -210,3 +206,5 @@ export const FactionGraphBarPlot: React.FC<FactionGraphBarPlotProps> = ({
     </>
   );
 };
+
+export default FactionGraphBarPlot;

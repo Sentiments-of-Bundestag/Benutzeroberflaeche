@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Nav } from 'react-bootstrap';
-import { NavigationLinkInterface } from '../types';
+import { NavigationLinkInterface } from '../../types';
 
 export interface FooterProps {
   links?: NavigationLinkInterface[];

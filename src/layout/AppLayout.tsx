@@ -1,14 +1,14 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 
-import { Header } from './Header';
-import { Footer } from './Footer';
+import { Header } from '../components/common/Header';
+import { Footer } from '../components/common/Footer';
 
-export interface LayoutProps {
+export interface AppLayoutProps {
   children?: React.ReactNode;
 }
 
-export const Layout: React.FC<LayoutProps> = ({ children }) => {
+const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   return (
     <>
       <Header />
@@ -19,3 +19,5 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     </>
   );
 };
+
+export default AppLayout;

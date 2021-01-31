@@ -1,14 +1,13 @@
 import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
-import { Faction, PersonRanked } from '../types';
+import { FactionProportion } from '../../types';
 
-export interface PersonRankBarPlotProps {
-  personRanks: PersonRanked[];
-  faction: Faction | undefined;
+export interface FactionProportionBarPlotProps {
+  factionProportion: FactionProportion[];
 }
 
-export const PersonRankBarPlot: React.FC<PersonRankBarPlotProps> = ({
-  personRanks, faction,
+const FactionPropotionBarPlot: React.FC<FactionProportionBarPlotProps> = ({
+  factionProportion,
 }) => {
   const colors = [
     {
@@ -44,48 +43,41 @@ export const PersonRankBarPlot: React.FC<PersonRankBarPlotProps> = ({
     },
   ];
 
-  const data = personRanks
-    .filter(personRank => faction !== undefined && personRank.factionId === faction?.factionId)
-    .map((node, index) => {
-      const colorObj = colors.find((color) => color.factionId === node.factionId);
-      const defaultColor = 'hsl(0, 0, 0)';
-      const defaultRank = -1;
+  const data = factionProportion.map((node) => {
+    const colorObj = colors.find((color) => color.factionId === node.factionId);
+    const defaultColor = 'hsl(0, 0, 0)';
+    const defaultRank = -1;
 
-      return {
-        faction: node.name,
-        rang: node.rank,
-        rank: colorObj ? colorObj.rank : defaultRank,
-        color: colorObj ? colorObj.color : defaultColor,
-      };
-    });
+    return {
+      faction: node.name,
+      rang: node.proportion,
+      rank: colorObj ? colorObj.rank : defaultRank,
+      color: colorObj ? colorObj.color : defaultColor,
+    };
+  });
 
   data.sort((a, b) => {
-    // @ts-ignore
     return b.rank - a.rank;
   });
-  const LIMIT = 10;
-  const data2 = data.slice(0, LIMIT);
 
   return (
     <>
-      <h3>Einflussreichste Personen der Partei {faction?.name}</h3>
-      <p className="text-larger">PLATZHALTER</p>
       <div style={{ height: 620 }}>
         <ResponsiveBar
           theme={{
             fontSize: 18,
           }}
-          data={data2}
+          data={data}
           keys={['rang']}
           label={(d) => Number(d.value).toFixed(2)}
           indexBy="faction"
-          margin={{ top: 20, right: 20, bottom: 180, left: 80 }}
-          padding={0.3}
+          margin={{ top: 20, right: 20, bottom: 150, left: 80 }}
           tooltip={(d) => (
             <strong>
-              Einfluss: {d.value} <br />
+              Redeanteil: {d.value} <br />
             </strong>
           )}
+          padding={0.3}
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
           colors={{ datum: 'data.color' }}
@@ -127,7 +119,7 @@ export const PersonRankBarPlot: React.FC<PersonRankBarPlotProps> = ({
             legendPosition: 'middle',
             legendOffset: -40,
           }}
-          enableLabel={false}
+          enableLabel={true}
           labelSkipWidth={14}
           labelSkipHeight={12}
           labelTextColor="#000000"
@@ -139,3 +131,5 @@ export const PersonRankBarPlot: React.FC<PersonRankBarPlotProps> = ({
     </>
   );
 };
+
+export default FactionPropotionBarPlot;

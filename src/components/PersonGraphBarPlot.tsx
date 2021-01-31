@@ -34,14 +34,13 @@ export const PersonGraphBarPlot: React.FC<PersonGraphBarPlotProps> = ({
     setSelectedFactionIdFrom(value);
   }
 
-
   const dataTo = personsGraph
     .filter((node) => node.sender === person.speakerId)
-    .filter(node => persons.find(p => p.speakerId === node.recipient && p.factionId === selectedFactionIdTo))
+    .filter((node) =>
+      persons.find((p) => p.speakerId === node.recipient && p.factionId === selectedFactionIdTo),
+    )
     .map((node) => {
-      const recipientFaction = persons.find(
-        (f) => f.speakerId === node.recipient,
-      );
+      const recipientFaction = persons.find((f) => f.speakerId === node.recipient);
 
       let color = 'rgb(0,0,0)';
       if (node.sentiment > 0) {
@@ -60,7 +59,9 @@ export const PersonGraphBarPlot: React.FC<PersonGraphBarPlotProps> = ({
 
   const dataFrom = personsGraph
     .filter((node) => node.recipient === person.speakerId)
-    .filter(node => persons.find(p => p.speakerId === node.sender && p.factionId === selectedFactionIdFrom))
+    .filter((node) =>
+      persons.find((p) => p.speakerId === node.sender && p.factionId === selectedFactionIdFrom),
+    )
     .map((node) => {
       const senderFaction = persons.find((f) => f.speakerId === node.sender);
 
@@ -85,51 +86,57 @@ export const PersonGraphBarPlot: React.FC<PersonGraphBarPlotProps> = ({
     return b.sentiment - a.sentiment;
   });
 
-  const personTo = factions.map(faction =>{
+  const personTo = factions.map((faction) => {
     return {
       id: faction.factionId,
       name: faction.name,
       count: personsGraph
-        .filter(personGraph => personGraph.sender === person.speakerId)
-        .filter(personGraph =>
+        .filter((personGraph) => personGraph.sender === person.speakerId)
+        .filter((personGraph) =>
           persons.find(
-            p =>  personGraph.recipient === p.speakerId && p.factionId === faction.factionId,
-          )).length,
+            (p) => personGraph.recipient === p.speakerId && p.factionId === faction.factionId,
+          ),
+        ).length,
     };
-  },
-  );
+  });
 
-  const personFrom = factions.map(faction =>{
+  const personFrom = factions.map((faction) => {
     return {
       id: faction.factionId,
       name: faction.name,
       count: personsGraph
-        .filter(personGraph => personGraph.recipient === person.speakerId)
-        .filter(personGraph =>
+        .filter((personGraph) => personGraph.recipient === person.speakerId)
+        .filter((personGraph) =>
           persons.find(
-            p =>  personGraph.sender === p.speakerId && p.factionId === faction.factionId,
-          )).length,
+            (p) => personGraph.sender === p.speakerId && p.factionId === faction.factionId,
+          ),
+        ).length,
     };
-  },
-  );
+  });
 
   const topInfluencer = 200;
   const influencers = [...personsRanked];
-  influencers.sort((a, b )=> b.rank - a.rank);
+  influencers.sort((a, b) => b.rank - a.rank);
   const topInfluencers = influencers.slice(0, topInfluencer);
-  const isInfluencer = topInfluencers.find(influencer => influencer.speakerId === person.speakerId);
+  const isInfluencer = topInfluencers.find(
+    (influencer) => influencer.speakerId === person.speakerId,
+  );
 
   const personSentiment = personsGraph
-    .filter(node => node.sender === person.speakerId)
-    .map(node => node.sentiment).reduce((a, b) => a + b, 0);
+    .filter((node) => node.sender === person.speakerId)
+    .map((node) => node.sentiment)
+    .reduce((a, b) => a + b, 0);
 
   return (
     <>
-      <h3>Wer ist {person.role} {person.name}?</h3>
+      <h3>
+        Wer ist {person.role} {person.name}?
+      </h3>
       <p className="text-justify">
         <b>{person.name}</b> ist Abgeordneter der Partei <b>{person.faction}</b>. Der/die
         Abgeordnete/r hat in dieser Legislaturperiode auf <b>{dataTo.length}</b> Abgeordneten
-        reagiert. Des Weiterem haben wiederum <b>{dataFrom.length}</b> Abgeordneten auf <b>{person.name}</b> regiert.
+        reagiert. Des Weiterem haben wiederum <b>{dataFrom.length}</b> Abgeordnete auf{' '}
+        <b>{person.name}</b> reagiert.
       </p>
 
       <PersonSentimentRadar
@@ -140,33 +147,40 @@ export const PersonGraphBarPlot: React.FC<PersonGraphBarPlotProps> = ({
       />
 
       <p className="text-justify">
-        <b>Abzeichen: {' '}</b>
+        <b>Abzeichen: </b>
 
-        {personSentiment < 0 ?
+        {personSentiment < 0 ? (
           <Tooltip title="Dem Abgeordnete/r sind in der Regel negative Interaktionen zuzuordnen">
             <Tag color="red">Widersacher </Tag>
-          </Tooltip> : null}
+          </Tooltip>
+        ) : null}
 
-        {personSentiment === 0 ?
+        {personSentiment === 0 ? (
           <Tooltip title="Dem Abgeordnete/r sind in der Regel neutrale Interaktionen zuzuordnen">
             <Tag>Neutralist</Tag>
-          </Tooltip> : null}
+          </Tooltip>
+        ) : null}
 
-        {personSentiment > 0 ?
+        {personSentiment > 0 ? (
           <Tooltip title="Dem Abgeordnete/r sind in der Regel positive Interaktionen zuzuordnen">
             <Tag color="green">Befürworter</Tag>
-          </Tooltip> : null}
+          </Tooltip>
+        ) : null}
 
-        {isInfluencer &&
+        {isInfluencer && (
           <Tooltip title="Die/Der Abgeordnete/r gehört unter den Top Influence">
             <Tag color="gold">Influencer</Tag>
-          </Tooltip>}
+          </Tooltip>
+        )}
       </p>
 
-      <h3>Sentiment von {person.name} zu Abgeordneten der Partei {factions.find(faction => faction.factionId === selectedFactionIdTo)?.name}</h3>
+      <h3>
+        Sentiment von {person.name} zu Abgeordneten der Partei{' '}
+        {factions.find((faction) => faction.factionId === selectedFactionIdTo)?.name}
+      </h3>
       <p className="text-justify">
-        In der folgenden Auflistungen werden die Reaktionen von {person.name} zu
-        den Parteien gezählt:
+        In der folgenden Auflistungen werden die Reaktionen von {person.name} zu den Parteien
+        gezählt:
         <ul>
           {personTo.map((node) => (
             <li key={node.id}>
@@ -177,14 +191,18 @@ export const PersonGraphBarPlot: React.FC<PersonGraphBarPlotProps> = ({
       </p>
 
       <p className="text-justify">
-        Um genauere Informationen zu den Abgeordneten einer Partei zu erhalten, wähle
-        eine Partei aus {' '}
-        <Select defaultValue={defaultFactionId} style={{ width: 120 }} onChange={handleSelectionBoxTo}>
-          {factions.map(faction =>
+        Um genauere Informationen zu den Abgeordneten einer Partei zu erhalten, wähle eine Partei
+        aus{' '}
+        <Select
+          defaultValue={defaultFactionId}
+          style={{ width: 120 }}
+          onChange={handleSelectionBoxTo}
+        >
+          {factions.map((faction) => (
             <Option value={faction.factionId} key={faction.factionId}>
               {faction.name}
-            </Option>,
-          )}
+            </Option>
+          ))}
         </Select>
       </p>
 
@@ -256,10 +274,14 @@ export const PersonGraphBarPlot: React.FC<PersonGraphBarPlotProps> = ({
           motionDamping={15}
         />
       </div>
-      <h3>Sentiment von Abgeordneten der Partei {factions.find(faction => faction.factionId === selectedFactionIdFrom)?.name} zu {person.name}</h3>
+      <h3>
+        Sentiment von Abgeordneten der Partei{' '}
+        {factions.find((faction) => faction.factionId === selectedFactionIdFrom)?.name} zu{' '}
+        {person.name}
+      </h3>
       <p className="text-justify">
-        In der folgenden Auflistungen werden die Reaktionen auf {person.name} von
-        den Parteien gezählt:
+        In der folgenden Auflistungen werden die Reaktionen auf {person.name} von den Parteien
+        gezählt:
         <ul>
           {personFrom.map((node) => (
             <li key={node.id}>
@@ -270,14 +292,18 @@ export const PersonGraphBarPlot: React.FC<PersonGraphBarPlotProps> = ({
       </p>
 
       <p className="text-justify">
-        Um genauere Informationen zu den Abgeordneten einer Partei zu erhalten, wähle
-        eine Partei aus {' '}
-        <Select defaultValue={defaultFactionId} style={{ width: 120 }} onChange={handleSelectionBoxFrom}>
-          {factions.map(faction =>
+        Um genauere Informationen zu den Abgeordneten einer Partei zu erhalten, wähle eine Partei
+        aus{' '}
+        <Select
+          defaultValue={defaultFactionId}
+          style={{ width: 120 }}
+          onChange={handleSelectionBoxFrom}
+        >
+          {factions.map((faction) => (
             <Option value={faction.factionId} key={faction.factionId}>
               {faction.name}
-            </Option>,
-          )}
+            </Option>
+          ))}
         </Select>
       </p>
       <div style={{ height: 400 }}>

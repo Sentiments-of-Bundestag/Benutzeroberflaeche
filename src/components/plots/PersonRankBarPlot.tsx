@@ -1,14 +1,13 @@
 import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
-import { FactionRanked } from '../types';
+import { Faction, PersonRanked } from '../../types';
 
-export interface FactionRankBarPlotProps {
-  factionRanks: FactionRanked[];
+export interface PersonRankBarPlotProps {
+  personRanks: PersonRanked[];
+  faction: Faction | undefined;
 }
 
-export const FactionRankBarPlot: React.FC<FactionRankBarPlotProps> = ({
-  factionRanks,
-}) => {
+const PersonRankBarPlot: React.FC<PersonRankBarPlotProps> = ({ personRanks, faction }) => {
   const colors = [
     {
       factionId: 'F002', // DIE LINKE
@@ -43,52 +42,49 @@ export const FactionRankBarPlot: React.FC<FactionRankBarPlotProps> = ({
     },
   ];
 
-  const data = factionRanks.map((node) => {
-    const colorObj = colors.find((color) => color.factionId === node.factionId);
-    const defaultColor = 'hsl(0, 0, 0)';
-    const defaultRank = -1;
+  const data = personRanks
+    .filter((personRank) => faction !== undefined && personRank.factionId === faction?.factionId)
+    .map((node, index) => {
+      const colorObj = colors.find((color) => color.factionId === node.factionId);
+      const defaultColor = 'hsl(0, 0, 0)';
+      const defaultRank = -1;
 
-    return {
-      faction: node.name,
-      rang: node.rank,
-      rank: colorObj ? colorObj.rank : defaultRank,
-      color: colorObj ? colorObj.color : defaultColor,
-    };
-  });
+      return {
+        faction: node.name,
+        rang: node.rank,
+        rank: colorObj ? colorObj.rank : defaultRank,
+        color: colorObj ? colorObj.color : defaultColor,
+      };
+    });
 
   data.sort((a, b) => {
+    // @ts-ignore
     return b.rank - a.rank;
   });
+  const LIMIT = 10;
+  const data2 = data.slice(0, LIMIT);
 
   return (
     <>
-      <h2>Kommunikation der Parteien</h2>
-      <p className="text-larger">
-        Die Kommunikation einer Partei wird hier anhand des PageRank-Algorithmus
-        berechnet. Das bedeutet je mehr eine Partei mit anderen Parteien
-        kommuniziert, desto höher der PageRank-Wert. Die Summe aller
-        Kommunikationen ist immer 1. Folglich muss der Wert immer in relation zu
-        den anderen Werten betrachtet werden
-      </p>
       <div style={{ height: 620 }}>
         <ResponsiveBar
           theme={{
             fontSize: 18,
           }}
-          data={data}
+          data={data2}
           keys={['rang']}
           label={(d) => Number(d.value).toFixed(2)}
           indexBy="faction"
-          margin={{ top: 20, right: 20, bottom: 150, left: 80 }}
+          margin={{ top: 20, right: 20, bottom: 180, left: 80 }}
           padding={0.3}
+          tooltip={(d) => (
+            <strong>
+              Einfluss: {d.value} <br />
+            </strong>
+          )}
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
           colors={{ datum: 'data.color' }}
-          tooltip={(d) => (
-            <strong>
-              Kommunikation: {d.value} <br />
-            </strong>
-          )}
           defs={[
             {
               id: 'dots',
@@ -127,7 +123,7 @@ export const FactionRankBarPlot: React.FC<FactionRankBarPlotProps> = ({
             legendPosition: 'middle',
             legendOffset: -40,
           }}
-          enableLabel={true}
+          enableLabel={false}
           labelSkipWidth={14}
           labelSkipHeight={12}
           labelTextColor="#000000"
@@ -139,3 +135,5 @@ export const FactionRankBarPlot: React.FC<FactionRankBarPlotProps> = ({
     </>
   );
 };
+
+export default PersonRankBarPlot;

@@ -1,42 +1,35 @@
 import React from 'react';
 import { ResponsiveRadar } from '@nivo/radar';
-import { ResponsiveBar } from '@nivo/bar';
 import { Faction, Person, PersonGraph } from '../types';
 
 export interface FractionPieProps {
   personsGraph: PersonGraph[];
   persons: Person[];
   person: Person;
-  factions: Faction[]
-}
-
-interface PersonGraphExtend extends PersonGraph {
-  faction: string;
+  factions: Faction[];
 }
 
 export const PersonSentimentRadar: React.FC<FractionPieProps> = ({
-  personsGraph, persons, person, factions }) => {
-
-  const personGraphExtend =
-    personsGraph
-      .filter((personGraph) => personGraph.sender === person.speakerId)
-      .map((personGraph) => {
-        const tempPerson = persons.find(p => p.speakerId === personGraph.recipient);
-        const factionName = tempPerson?tempPerson.faction:'';
-        return { ...personGraph, faction: factionName };
-      });
-
-  const data= factions.map(faction => {
-
-    const personGraphForFaction = personsGraph.filter(node => node.sender === person.speakerId)
-      .filter(node => persons.find(p => p.speakerId === node.recipient && p.factionId === faction.factionId))
-      .map(X => X.sentiment)
-    ;
-    const average = personGraphForFaction.length > 0 ?  personGraphForFaction.reduce((a, b) => a + b, 0) / personGraphForFaction.length : 0;
+  personsGraph,
+  persons,
+  person,
+  factions,
+}) => {
+  const data = factions.map((faction) => {
+    const personGraphForFaction = personsGraph
+      .filter((node) => node.sender === person.speakerId)
+      .filter((node) =>
+        persons.find((p) => p.speakerId === node.recipient && p.factionId === faction.factionId),
+      )
+      .map((X) => X.sentiment);
+    const average =
+      personGraphForFaction.length > 0
+        ? personGraphForFaction.reduce((a, b) => a + b, 0) / personGraphForFaction.length
+        : 0;
 
     return {
-      'factionName': faction.name,
-      'sentiment': Number(average).toFixed(2),
+      factionName: faction.name,
+      sentiment: Number(average).toFixed(2),
     };
   });
 
@@ -48,7 +41,7 @@ export const PersonSentimentRadar: React.FC<FractionPieProps> = ({
           theme={{
             fontSize: 18,
           }}
-          keys={['sentiment' ]}
+          keys={['sentiment']}
           indexBy="factionName"
           maxValue="auto"
           margin={{ top: 80, right: 20, bottom: 80, left: 80 }}
