@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,7 +17,7 @@ import { SessionSelection } from '../components/SessionSelection';
 import { FactionPie } from '../components/FactionPie';
 import { Faction } from '../types';
 import { FactionGraphBarPlot } from '../components/FactionGraphBarPlot';
-import { PersonTable } from '../components/PersonTable';
+import PersonTable from '../components/PersonTable';
 import { getAllPersons } from '../selectors/persons';
 import {
   getPersonGraphsStart,
@@ -30,12 +31,7 @@ import { FactionPropotionBarPlot } from '../components/FactionPropotionBarPlot';
 
 const FactionsPage: React.FC = () => {
   const dispatch = useDispatch();
-  const {
-    factions,
-    factionGraphs,
-    factionRanks,
-    factionProportion,
-  } = useSelector(getAllFactions);
+  const { factions, factionGraphs, factionRanks, factionProportion } = useSelector(getAllFactions);
   const { personRanks, personGraphs } = useSelector(getAllPersons);
   const { sessions } = useSelector(getAllSessions);
   useEffect(() => {
@@ -55,9 +51,7 @@ const FactionsPage: React.FC = () => {
     }
   }, [factions]);
 
-  const [selectedFaction, setSelectedFaction] = React.useState<
-  Faction | undefined
-  >(factions[0]);
+  const [selectedFaction, setSelectedFaction] = React.useState<Faction | undefined>(factions[0]);
 
   return (
     <>
@@ -68,38 +62,27 @@ const FactionsPage: React.FC = () => {
         <FactionPropotionBarPlot factionProportion={factionProportion} />
         <h2>Sentiment Analyse</h2>
         <p className="text-justify">
-          Das Wort Sentiment stammt aus dem Französischen und bedeutet einfach
-          Gefühl oder Empfindung. Bei der Sentiment-Analyse wird demnach
-          untersucht, welche Empfindungen gegenüber einer bestimmten Sache
-          vorherrschen. Wem der Begriff Sentiment-Analyse nicht liegt, der kann
-          Tonalitätsanalyse verwenden. Ganz im Sinne von „Der Ton macht die
-          Musik“.
+          Das Wort Sentiment stammt aus dem Französischen und bedeutet einfach Gefühl oder
+          Empfindung. Bei der Sentiment-Analyse wird demnach untersucht, welche Empfindungen
+          gegenüber einer bestimmten Sache vorherrschen. Wem der Begriff Sentiment-Analyse nicht
+          liegt, der kann Tonalitätsanalyse verwenden. Ganz im Sinne von „Der Ton macht die Musik“.
         </p>
         <p className="text-justify">
-          Diese Sentiment-Analyse ermittelt die Stimmung im Bundestag. Hier
-          werden die Protokolle auf Basis von vorher festgelegten positiven und
-          negativen Signal-Worten bewertet. Die Worte „freundlich“ und
-          „kompetent“ werden als positive Signale bewertet und das Wort „ätzend“
-          als negatives. Insgesamt würde der Satz als positiv von der Software
-          eingeordnet werden, da zwei positive nur einem negativen Signal-Wort
-          gegenüberstehen.
+          Diese Sentiment-Analyse ermittelt die Stimmung im Bundestag. Hier werden die Protokolle
+          auf Basis von vorher festgelegten positiven und negativen Signal-Worten bewertet. Die
+          Worte „freundlich“ und „kompetent“ werden als positive Signale bewertet und das Wort
+          „ätzend“ als negatives. Insgesamt würde der Satz als positiv von der Software eingeordnet
+          werden, da zwei positive nur einem negativen Signal-Wort gegenüberstehen.
         </p>
         {factionGraphs.length > 0 && factions.length > 0 ? (
-          <FactionGraphCordPlot
-            factions={factions}
-            factionsGraph={factionGraphs}
-          />
+          <FactionGraphCordPlot factions={factions} factionsGraph={factionGraphs} />
         ) : null}
         <p className="text-justify">
-          Dank der Sentiment-Analyse erfahren wir nun, wie Stimmungen der
-          Parteien zueinander sind. Wählen Sie dazu eine Partei aus, um die
-          Stimmung der ausgewählten Partei zu den anderen Parteien genauer zu
-          betrachten.
+          Dank der Sentiment-Analyse erfahren wir nun, wie Stimmungen der Parteien zueinander sind.
+          Wählen Sie dazu eine Partei aus, um die Stimmung der ausgewählten Partei zu den anderen
+          Parteien genauer zu betrachten.
         </p>
-        <FactionNavigation
-          factions={factions}
-          selectFaction={setSelectedFaction}
-        />
+        <FactionNavigation factions={factions} selectFaction={setSelectedFaction} />
         {selectedFaction !== undefined && factionGraphs.length > 0 ? (
           <>
             <FactionGraphBarPlot
@@ -109,7 +92,10 @@ const FactionsPage: React.FC = () => {
             />
           </>
         ) : null}
-        {factions.length > 0 && personGraphs.length > 0 && personRanks.length > 0 && personRanks.length > 0?
+        {factions.length > 0 &&
+        personGraphs.length > 0 &&
+        personRanks.length > 0 &&
+        personRanks.length > 0 ? (
           <>
             <PersonRankBarPlot personRanks={personRanks} faction={selectedFaction} />
             <PersonTable
@@ -119,7 +105,7 @@ const FactionsPage: React.FC = () => {
               persons={personRanks}
             />
           </>
-          : null}
+        ) : null}
       </Layout>
     </>
   );
