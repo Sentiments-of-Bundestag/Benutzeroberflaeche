@@ -29,7 +29,8 @@ import ToolTipWrapper from '../components/ToolTipWrapper';
 import FactionPiePlot from '../components/plots/FactionPiePlot';
 
 // Types
-import { Session } from '../types';
+import { FactionProportion, Session } from '../types';
+import { FactionPropotionBarPlot } from '../components/plots/FactionPropotionBarPlot';
 
 interface FactionsProps {}
 
@@ -87,7 +88,7 @@ const Factions: React.FC<FactionsProps> = () => {
 
   const renderBundestagZusammensetzungText = (): React.ReactNode => {
     return (
-      <p className="text-justify">
+      <div className="text-justify">
         Der Bundestages der{' '}
         <b>{legislativePeriods.length ? legislativePeriods[0] : ''}</b> setzte
         sich aus den folgendenn <b>{factions.length}</b> Parteien zusammen:
@@ -98,8 +99,36 @@ const Factions: React.FC<FactionsProps> = () => {
             </li>
           ))}
         </ul>
-        Im folgenden Pie-Chart ist die Sitzverteilung visualisiert.
-      </p>
+      </div>
+    );
+  };
+
+  const renderBundestagParteilAnteilText = (): React.ReactNode => {
+    const factionRankList: FactionProportion[] = [...factionProportion];
+    factionRankList.sort((a, b) => a.proportion - b.proportion);
+
+    const smallestFactionRank = factionRankList.length
+      ? factionRankList[0]
+      : undefined;
+    const biggestFactionRank = factionRankList.length
+      ? factionRankList[factionRankList.length - 1]
+      : undefined;
+    return (
+      <div className="text-justify">
+        Die folgende Grafik visualisiert den prozentualen Redeanteil der
+        Parteien im Bundestag. Die Partei{' '}
+        <b>{biggestFactionRank ? biggestFactionRank.name : ''}</b> hat mit{' '}
+        <b>
+          {biggestFactionRank ? biggestFactionRank.proportion.toFixed(2) : ''}%{' '}
+        </b>
+        den größten Redeanteil und die Partei{' '}
+        <b>{smallestFactionRank ? smallestFactionRank.name : ''}</b> mit{' '}
+        <b>
+          {smallestFactionRank ? smallestFactionRank.proportion.toFixed(2) : ''}
+          %
+        </b>{' '}
+        den geringsten Redeanteil.
+      </div>
     );
   };
 
@@ -118,6 +147,9 @@ const Factions: React.FC<FactionsProps> = () => {
         <h2>Zusammensetzung des Bundestages</h2>
         {renderBundestagZusammensetzungText()}
         <FactionPiePlot factions={factions} />
+        <h2>Redeanteil der Parteien</h2>
+        {renderBundestagParteilAnteilText()}
+        <FactionPropotionBarPlot factionProportion={factionProportion} />
       </AppLayout>
     </>
   );
