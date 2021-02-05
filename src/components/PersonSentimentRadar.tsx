@@ -29,7 +29,7 @@ export const PersonSentimentRadar: React.FC<FractionPieProps> = ({
 
     return {
       factionName: faction.name,
-      sentiment: Number(average).toFixed(2),
+      sentiment: Math.exp((average + 1)/2 * 7 ),
     };
   });
 
@@ -41,6 +41,7 @@ export const PersonSentimentRadar: React.FC<FractionPieProps> = ({
           theme={{
             fontSize: 18,
           }}
+          tooltipFormat={value => ((Math.log(value) / 7 * 2) - 1).toFixed(2)}
           keys={['sentiment']}
           indexBy="factionName"
           maxValue="auto"
@@ -59,6 +60,7 @@ export const PersonSentimentRadar: React.FC<FractionPieProps> = ({
           enableDotLabel={true}
           dotLabel="value"
           dotLabelYOffset={-12}
+          dotLabelFormat={label => ((Math.log(label) / 7 * 2) - 1).toFixed(2)}
           colors={{ scheme: 'nivo' }}
           fillOpacity={0.25}
           blendMode="multiply"

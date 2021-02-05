@@ -34,6 +34,9 @@ export const PersonGraphBarPlot: React.FC<PersonGraphBarPlotProps> = ({
     setSelectedFactionIdFrom(value);
   }
 
+  const sumInteractionTo = personsGraph.filter(pG => pG.sender === person.speakerId);
+  const sumInteractionFrom = personsGraph.filter(pG => pG.recipient === person.speakerId);
+
   const dataTo = personsGraph
     .filter((node) => node.sender === person.speakerId)
     .filter((node) =>
@@ -129,25 +132,48 @@ export const PersonGraphBarPlot: React.FC<PersonGraphBarPlotProps> = ({
 
   return (
     <>
-      <h3>
+      <h2>
         Wer ist {person.role} {person.name}?
-      </h3>
+      </h2>
       <p className="text-justify">
         <b>{person.name}</b> ist Abgeordneter der Partei <b>{person.faction}</b>. Der/die
-        Abgeordnete/r hat in dieser Legislaturperiode auf <b>{dataTo.length}</b> Abgeordneten
-        reagiert. Des Weiterem haben wiederum <b>{dataFrom.length}</b> Abgeordnete auf{' '}
-        <b>{person.name}</b> reagiert.
+        Abgeordnete/r hat in dieser Legislaturperiode auf <b>{sumInteractionTo.length}</b> Abgeordneten
+        reagiert und <b>{sumInteractionFrom.length}</b> Abgeordnete haben auf{' '}
+        <b>{person.name}</b> reagiert. Die Interaktionen haben sich wie folgt
+        an die Parteien gerichtet.
       </p>
 
-      <PersonSentimentRadar
-        personsGraph={personsGraph}
-        persons={persons}
-        factions={factions}
-        person={person}
-      />
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <p className="text-justify">
+              <b>Von {person.name} ausgehende Interaktionen:</b>
+              <ul>
+                {personTo.map((node) => (
+                  <li key={node.id}>
+                    an <b>{node.name},</b> mit <b>{node.count}</b> Abgeordneten
+                  </li>
+                ))}
+              </ul>
+            </p>          
+          </div>
+          <div className="col">
+            <p className="text-justify">
+              <b>An {person.name} gerichtete Interaktionen:</b>
+              <ul>
+                {personFrom.map((node) => (
+                  <li key={node.id}>
+                    von <b>{node.name},</b> mit <b>{node.count}</b> Abgeordneten
+                  </li>
+                ))}
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
 
       <p className="text-justify">
-        <b>Abzeichen: </b>
+        <b>Tags: </b>
 
         {personSentiment < 0 ? (
           <Tooltip title="Dem Abgeordnete/r sind in der Regel negative Interaktionen zuzuordnen">
@@ -174,25 +200,35 @@ export const PersonGraphBarPlot: React.FC<PersonGraphBarPlotProps> = ({
         )}
       </p>
 
-      <h3>
-        Sentiment von {person.name} zu Abgeordneten der Partei{' '}
-        {factions.find((faction) => faction.factionId === selectedFactionIdTo)?.name}
-      </h3>
+      <h2>
+        Sentiment Analyse für Abgeordneten
+      </h2>
+
       <p className="text-justify">
-        In der folgenden Auflistungen werden die Reaktionen von {person.name} zu den Parteien
-        gezählt:
-        <ul>
-          {personTo.map((node) => (
-            <li key={node.id}>
-              von <b>{node.name}</b> mit <b>{node.count}</b> Abgeordneten
-            </li>
-          ))}
-        </ul>
+        Die Methode der Sentiment Analyse, direkt übersetzt zu Stimmungserkennung, beschreibt die automatische Analyse
+        von Texten um in einer Aussage eine positive oder negative Stimmung zu erkennen. Diese
+        Zuordnung von Positiv und Negativ basiert auf vorher markierten Signalwörtern. Worte wie
+        “kompetent” oder “freundlich” werden zum Beispiel mit positiven Meinungen assoziiert. Positiven
+        Wörtern wird ein Wert zwischen 0 und 1 zugeordnet und negativen Wörtern ein Wert von 0 bis -1.
+        Die Werte werden summiert um ganze Sätze oder Paragraphen zu bewerten. Durch dieses Verfahren
+        wurden die Aussagen der Abgeordneten untersucht und somit die Stimmung der Parteien und der
+        Personen untereinander ermittelt.
       </p>
 
       <p className="text-justify">
-        Um genauere Informationen zu den Abgeordneten einer Partei zu erhalten, wähle eine Partei
-        aus{' '}
+        Die Ergebnisse wurden zunächst als Durchschnittswerte gegenüber den Parteien
+        abgebildet.
+      </p>
+      <PersonSentimentRadar
+        personsGraph={personsGraph}
+        persons={persons}
+        factions={factions}
+        person={person}
+      />
+
+      <h2>Sentiment der Interaktionen von und an {person.name}</h2>
+      <p className="text-justify">
+        Die Stimmung der Aussagen von <b>{person.name}</b> gegenüber Abgeordneten der Partei{' '}
         <Select
           defaultValue={defaultFactionId}
           style={{ width: 120 }}
@@ -203,9 +239,8 @@ export const PersonGraphBarPlot: React.FC<PersonGraphBarPlotProps> = ({
               {faction.name}
             </Option>
           ))}
-        </Select>
+        </Select>.
       </p>
-
       <div style={{ height: 400 }}>
         <ResponsiveBar
           theme={{
@@ -274,26 +309,8 @@ export const PersonGraphBarPlot: React.FC<PersonGraphBarPlotProps> = ({
           motionDamping={15}
         />
       </div>
-      <h3>
-        Sentiment von Abgeordneten der Partei{' '}
-        {factions.find((faction) => faction.factionId === selectedFactionIdFrom)?.name} zu{' '}
-        {person.name}
-      </h3>
       <p className="text-justify">
-        In der folgenden Auflistungen werden die Reaktionen auf {person.name} von den Parteien
-        gezählt:
-        <ul>
-          {personFrom.map((node) => (
-            <li key={node.id}>
-              von <b>{node.name}</b> mit <b>{node.count}</b> Abgeordneten
-            </li>
-          ))}
-        </ul>
-      </p>
-
-      <p className="text-justify">
-        Um genauere Informationen zu den Abgeordneten einer Partei zu erhalten, wähle eine Partei
-        aus{' '}
+        Die Stimmung der Aussagen von Abgeordneten der Partei {' '}
         <Select
           defaultValue={defaultFactionId}
           style={{ width: 120 }}
@@ -304,7 +321,7 @@ export const PersonGraphBarPlot: React.FC<PersonGraphBarPlotProps> = ({
               {faction.name}
             </Option>
           ))}
-        </Select>
+        </Select> gegenüber <b>{person.name}</b>.
       </p>
       <div style={{ height: 400 }}>
         <ResponsiveBar

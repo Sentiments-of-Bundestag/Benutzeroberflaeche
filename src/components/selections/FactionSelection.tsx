@@ -20,7 +20,7 @@ const FactionSelection: React.FC<FactionSelectionProps> = ({
   selectFaction,
 }) => {
   return (
-    <div style={{ marginTop: 40 }}>
+    <div style={{ marginTop: 0 }}>
       <Row>
         <Col xs={4} md={2}>
           <Figure>

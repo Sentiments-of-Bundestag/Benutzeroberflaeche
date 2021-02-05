@@ -1,6 +1,7 @@
 import React from 'react';
 import { ResponsiveChord } from '@nivo/chord';
 import { Skeleton } from 'antd';
+import { TableTooltip, BasicTooltip, Chip } from '@nivo/tooltip';
 
 import { Faction, FactionGraph } from '../../types';
 
@@ -18,7 +19,11 @@ const FactionGraphCordPlot: React.FC<FactionGraphCordPlotProps> = ({
       const node = factionsGraph.find(
         (fg) => fg.sender === f1.factionId && f2.factionId === fg.recipient,
       );
-      return node ? node.sentiment : 0;
+      
+      if (f1.factionId === f2.factionId){
+        return 0;
+      }
+      return node ? Math.exp((node.sentiment + 1)/2 * 7 ) : 0;
     });
   });
 
@@ -64,14 +69,42 @@ const FactionGraphCordPlot: React.FC<FactionGraphCordPlotProps> = ({
     return colorObj ? colorObj.color : defaultColor;
   });
 
+  // @ts-ignore
+  const ArcTooltip = ({ arc }) => (
+    <BasicTooltip
+      id={`${arc.label}`}
+      color={arc.color}
+      enableChip={true}
+    />
+  );
+
+  // @ts-ignore
+  const RibbonTooltip = ({ ribbon }) => (
+    <TableTooltip
+      rows={[
+        [
+          <Chip key="chip" color={ribbon.source.color} />,
+          <strong key="id">{ribbon.source.id}</strong>,
+          ((Math.log(ribbon.source.value) / 7 * 2) - 1).toFixed(2),
+        ],
+        [
+          <Chip key="chip" color={ribbon.target.color} />,
+          <strong key="id">{ribbon.target.id}</strong>,
+          ((Math.log(ribbon.target.value) / 7 * 2) - 1).toFixed(2),
+        ],
+      ]}
+    />
+  );
   return (
     <div style={{ height: 600 }}>
       {factionsGraph.length > 0 && factions.length > 0 ? (
         <ResponsiveChord
           matrix={matrix}
+          ribbonTooltip={RibbonTooltip}
+          arcTooltip={ArcTooltip}
           keys={factions.map((f) => f.name)}
           margin={{ top: 20, right: 20, bottom: 80, left: 80 }}
-          valueFormat=".2f"
+          valueFormat='.2f'
           padAngle={0.08}
           innerRadiusRatio={0.9}
           innerRadiusOffset={0.05}
@@ -83,7 +116,7 @@ const FactionGraphCordPlot: React.FC<FactionGraphCordPlotProps> = ({
           // @ts-ignore
           ribbonBorderColor={{ from: 'color', modifiers: [['darker', 0.4]] }}
           enableLabel={true}
-          label="id"
+          label='id'
           labelOffset={12}
           labelRotation={-90}
           labelTextColor={{ from: 'color', modifiers: [['darker', 1]] }}

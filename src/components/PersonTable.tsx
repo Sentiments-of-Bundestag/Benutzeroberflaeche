@@ -84,7 +84,7 @@ const PersonTable: React.FC<FactionTableProps> = ({
 
   useEffect(() => {
     if (personsRanked.length > 0) {
-      setSelectedPerson(personsRanked[0]);
+      setSelectedPerson(personsRanked[4]);
     }
   }, [personsRanked]);
 
@@ -121,7 +121,6 @@ const PersonTable: React.FC<FactionTableProps> = ({
         onRow={(record) => {
           return {
             onClick: () => setSelectedPerson(record),
-            onDoubleClick: () => setSelectedPerson(undefined),
           };
         }}
         rowKey={(record) => record.speakerId}

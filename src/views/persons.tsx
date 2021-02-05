@@ -51,11 +51,10 @@ const Persons: React.FC<PersonsProps> = () => {
   return (
     <>
       <AppLayout>
-        <h1>Sentiment Analyse für Abgeordnete</h1>
-        <Alert variant="warning">
-          <b> Wähle einen Abgeordneten aus, indem du auf die Zeile der Tabelle klickst..</b>
-        </Alert>
-
+        <h1>Analyse der Interaktionen von Abgeordneten</h1>
+        <p className='text-justify'>
+          Wähle einen Abgeordneten aus, indem du auf die Zeile der Tabelle klickst.
+        </p>
         {factions.length && personRanks.length && personGraphs.length ? (
           <PersonTable
             factions={factions}
@@ -67,7 +66,7 @@ const Persons: React.FC<PersonsProps> = () => {
           <Skeleton active />
         )}
         <Button variant="primary" size="lg" block onClick={() => redirectTo('factions')}>
-          Weiter zu den Parteien
+          Weiter zu den Analysen der Interaktionen von Parteien
         </Button>
         <Button variant="secondary" size="lg" block onClick={() => redirectTo('/')}>
           Zurück zur Startseite

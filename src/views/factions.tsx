@@ -41,7 +41,8 @@ import { Faction, FactionProportion } from '../types';
 import FactionGraphBarPlot from '../components/plots/FactionGraphBarPlot';
 import PersonRankBarPlot from '../components/plots/PersonRankBarPlot';
 
-interface FactionsProps {}
+interface FactionsProps {
+}
 
 const Factions: React.FC<FactionsProps> = () => {
   const dispatch = useDispatch();
@@ -83,10 +84,10 @@ const Factions: React.FC<FactionsProps> = () => {
       : undefined;
 
     return (
-      <p className="text-justify">
-        Die Legislaturperiode <b>{legislativePeriods.length ? legislativePeriods[0] : ''}</b> wurde
-        am <b>{firstDate ? `${firstDate.getMonth()}/${firstDate.getFullYear()}` : ''}</b> gewählt
-        und lief bis zum <b>{lastDate ? `${lastDate.getMonth()}/${lastDate.getFullYear()}` : ''}</b>
+      <p className='text-justify'>
+        Die <b>{legislativePeriods.length ? legislativePeriods[0] : ''}.</b> Legislaturperiode wurde
+        am <b>{firstDate ? `${firstDate.getMonth() + 1}/${firstDate.getFullYear()}` : ''}</b> gewählt
+        und regierte bis zum <b>{lastDate ? `${lastDate.getMonth() + 1}/${lastDate.getFullYear()}` : ''}</b>
         . Zu dieser Periode wurden <b>{sessions.length}</b> Protokolle untersucht.
       </p>
     );
@@ -94,13 +95,13 @@ const Factions: React.FC<FactionsProps> = () => {
 
   const renderBundestagZusammensetzungText = (): React.ReactNode => {
     return (
-      <div className="text-justify">
-        Der Bundestages der <b>{legislativePeriods.length ? legislativePeriods[0] : ''}</b> setzte
-        sich aus den folgendenn <b>{factions.length}</b> Parteien zusammen:
+      <div className='text-justify'>
+        Der Bundestages der <b>{legislativePeriods.length ? legislativePeriods[0] : ''}.</b> Legislaturperiode
+        setzte sich aus den folgendenn <b>{factions.length}</b> Parteien zusammen:
         <ul>
           {factions.map((faction) => (
             <li key={faction.factionId}>
-              <b>{faction.name}</b> mit <b>{faction.size}</b> Stimmen
+              <b>{faction.name}</b> mit <b>{faction.size}</b> Sitzen
             </li>
           ))}
         </ul>
@@ -117,7 +118,7 @@ const Factions: React.FC<FactionsProps> = () => {
       ? factionRankList[factionRankList.length - 1]
       : undefined;
     return (
-      <div className="text-justify">
+      <div className='text-justify'>
         Die folgende Grafik visualisiert den prozentualen Redeanteil der Parteien im Bundestag. Die
         Partei <b>{biggestFactionRank ? biggestFactionRank.name : ''}</b> hat mit{' '}
         <b>{biggestFactionRank ? biggestFactionRank.proportion.toFixed(2) : ''}% </b>
@@ -132,7 +133,7 @@ const Factions: React.FC<FactionsProps> = () => {
   const renderSentimentGeneralText = (): React.ReactNode => {
     return (
       <>
-        <p className="text-justify">
+        <p className='text-justify'>
           Die Methode der Sentiment Analyse, direkt übersetzt zu Stimmungserkennung, beschreibt die
           automatische Analyse von Texten um in einer Aussage eine positive oder negative Stimmung
           zu erkennen. Diese Zuordnung von Positiv und Negativ basiert auf vorher markierten
@@ -143,7 +144,7 @@ const Factions: React.FC<FactionsProps> = () => {
           untersucht und somit die Stimmung der Parteien und der Personen untereinander ermittelt.
         </p>
         <br />
-        <p className="text-justify">
+        <p className='text-justify'>
           Im Sehnendiagramm werden die Stimmungen der Interaktionen zwischen den Parteien
           abgebildet. Die auf dem Rand liegenden Balken geben eine Gesamtstimmung der Partei wieder.
         </p>
@@ -154,7 +155,7 @@ const Factions: React.FC<FactionsProps> = () => {
   const renderSentimentGuidance = (): React.ReactNode => {
     return (
       <>
-        <div className="text-justify">
+        <div className='text-justify'>
           Hier können ein- und ausgehende Sentiments der einzelnen Parteien betrachtet werden.
         </div>
       </>
@@ -163,7 +164,7 @@ const Factions: React.FC<FactionsProps> = () => {
 
   const renderSentimentFromText = (): React.ReactNode => {
     return (
-      <div className="text-justify">
+      <div className='text-justify'>
         Stimmungsbild der von der SPD ausgehenden Kommentare an andere Parteien.
       </div>
     );
@@ -171,7 +172,7 @@ const Factions: React.FC<FactionsProps> = () => {
 
   const renderFactionPersonRankText = (): React.ReactNode => {
     return (
-      <div className="text-justify">
+      <div className='text-justify'>
         Bei der Analyse der Kommentare wurde ebenfalls erforscht, welche Abgeordneten einer Partei
         am meisten Interaktionen mit anderen aktiven Abgeordneten hatte. Diese Informationen wurden
         über den Pagerank Algorithmus ermittelt.
@@ -182,10 +183,10 @@ const Factions: React.FC<FactionsProps> = () => {
   return (
     <>
       <AppLayout>
-        <ToolTipWrapper text="Wähle zuerst eine Legislaturperiode aus, die du genauer betrachten möchtest.">
+        <ToolTipWrapper text='Wähle zuerst eine Legislaturperiode aus, die du genauer betrachten möchtest.'>
           <LegislativePeriodSelection
             legislativePeriods={legislativePeriods}
-            label="Legislaturperiode"
+            label='Legislaturperiode'
             loading={areSessionsLoading}
           />
         </ToolTipWrapper>
@@ -196,13 +197,13 @@ const Factions: React.FC<FactionsProps> = () => {
         <h2>Redeanteil der Parteien</h2>
         {renderBundestagParteilAnteilText()}
         <FactionPropotionBarPlot factionProportion={factionProportion} />
-        <h2>Sentiment Analyse</h2>
+        <h2>Sentiment Analyse für Parteien</h2>
         {renderSentimentGeneralText()}
         <FactionGraphCordPlot factions={factions} factionsGraph={factionGraphs} />
         {renderSentimentGuidance()}
         <br />
-        <Alert variant="warning">
-          <b> Wechsle zwischen den Parteien, indem du auf die Logos klickst..</b>
+        <Alert variant='warning'>
+          <b> Wechsle zwischen den Parteien, indem du auf die Logos klickst</b>
         </Alert>
         <FactionSelection factions={factions} selectFaction={setSelectedFaction} />
         <h3>
@@ -219,17 +220,17 @@ const Factions: React.FC<FactionsProps> = () => {
         ) : (
           <Skeleton />
         )}
-        <h3>Einflussreichste Personen der Partei SPD</h3>
+        <h3>Einflussreichste Personen der Partei {selectedFaction?.name}</h3>
         {renderFactionPersonRankText()}
         {selectedFaction !== undefined && personRanks.length ? (
           <PersonRankBarPlot faction={selectedFaction} personRanks={personRanks} />
         ) : (
           <Skeleton />
         )}
-        <Button variant="primary" size="lg" block onClick={() => redirectTo('persons')}>
-          Weiter zu den Abgeordneten
+        <Button variant='primary' size='lg' block onClick={() => redirectTo('persons')}>
+          Weiter zu den Analysen der Interaktionen von Parteien
         </Button>
-        <Button variant="secondary" size="lg" block onClick={() => redirectTo('/')}>
+        <Button variant='secondary' size='lg' block onClick={() => redirectTo('/')}>
           Zurück zur Startseite
         </Button>
       </AppLayout>

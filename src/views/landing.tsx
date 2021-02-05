@@ -55,10 +55,10 @@ const Landing: React.FC<LandingProps> = () => {
         </Row>
         <br />
         <Button variant="primary" size="lg" block onClick={() => redirectTo('factions')}>
-          Weiter zu den Parteien
+          Weiter zu den Analysen der Interaktionen von Parteien
         </Button>
         <Button variant="secondary" size="lg" block onClick={() => redirectTo('persons')}>
-          Weiter zu den Abgeordneten
+          Weiter zu den Analysen der Interaktionen von Abgeordneten
         </Button>
         <p className="text-justify">
           <br />
