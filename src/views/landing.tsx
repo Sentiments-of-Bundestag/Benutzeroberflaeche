@@ -31,11 +31,11 @@ const Landing: React.FC<LandingProps> = () => {
       <AppLayout>
         <h1>Analyse der Interaktionen im Deutschen Bundestag</h1>
         <p className="text-justify">
-          Im Projekt Sentiment of Bundestag hat eine Gruppe von Studenten der HTW Berlin im
+          In dem Projekt, Sentiment of Bundestag, hat eine Gruppe von Studenten der HTW Berlin im
           Wintersemester 2020/21 Plenarprotokolle des Deutschen Bundestags aufbereitet und
-          erforscht. Mithilfe einer Sentiment Analyse wurden die Kommentare und Wortmeldungen der
-          Abgeordneten auf ihre Stimmung hin untersucht. Die Ergebnisse wurden visualisiert und nach
-          Legislaturperioden sortiert.
+          erforscht. Mithilfe einer Sentiment Analyse wurden Kommentare und Wortmeldungen der
+          Abgeordneten bezogen auf ihre Stimmung untersucht. Die Ergebnisse wurden nach
+          Legislaturperioden sortiert, aufbereitet und visualisiert.
         </p>
         <Row>
           <Col>
@@ -62,7 +62,7 @@ const Landing: React.FC<LandingProps> = () => {
         </Button>
         <p className="text-justify">
           <br />
-          Die Projektarbeit wurde im Rahmen des Moduls Information Systems unter der Leitung von
+          Die Projektarbeit wurde im Rahmen des Moduls Information Systems unter der Aufsicht von
           Prof. Dr. rer. nat. Thomas Hoppe durchgeführt.
         </p>
       </AppLayout>
