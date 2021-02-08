@@ -136,7 +136,7 @@ export const PersonGraphBarPlot: React.FC<PersonGraphBarPlotProps> = ({
         Wer ist {person.role} {person.name}?
       </h2>
       <p className="text-justify">
-        <b>{person.name}</b> ist Abgeordneter der Partei <b>{person.faction}</b>. Der/die
+        <b>{person.name}</b> ist Mitglied der Partei <b>{person.faction}</b>. Der/die
         Abgeordnete/r hat in dieser Legislaturperiode auf <b>{sumInteractionTo.length}</b> Abgeordneten
         reagiert und <b>{sumInteractionFrom.length}</b> Abgeordnete haben auf{' '}
         <b>{person.name}</b> reagiert. Die Interaktionen haben sich wie folgt
