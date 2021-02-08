@@ -133,7 +133,7 @@ const FactionGraphBarPlot: React.FC<FactionGraphBarPlotProps> = ({
       </div>
       <h3>Sentiment von anderen Parteien zu {faction.name}</h3>
       <p className="text-larger">
-        Stimmungsbild der Kommentare anderer Parteien gegenüber der SPD.
+        Stimmungsbild der Kommentare anderer Parteien gegenüber der {faction.name}.
       </p>
       <div style={{ height: 400 }}>
         <ResponsiveBar
