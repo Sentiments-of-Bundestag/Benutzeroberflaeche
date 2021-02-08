@@ -228,7 +228,7 @@ const Factions: React.FC<FactionsProps> = () => {
           <Skeleton />
         )}
         <Button variant='primary' size='lg' block onClick={() => redirectTo('persons')}>
-          Weiter zu den Analysen der Interaktionen von Parteien
+          Weiter zu den Analysen der Interaktionen der Abgeordneten
         </Button>
         <Button variant='secondary' size='lg' block onClick={() => redirectTo('/')}>
           Zurück zur Startseite
