@@ -97,7 +97,7 @@ const Factions: React.FC<FactionsProps> = () => {
     return (
       <div className='text-justify'>
         Der Bundestages der <b>{legislativePeriods.length ? legislativePeriods[0] : ''}.</b> Legislaturperiode
-        setzte sich aus den folgendenn <b>{factions.length}</b> Parteien zusammen:
+        setzte sich aus den folgenden <b>{factions.length}</b> Parteien zusammen:
         <ul>
           {factions.map((faction) => (
             <li key={faction.factionId}>
@@ -135,13 +135,13 @@ const Factions: React.FC<FactionsProps> = () => {
       <>
         <p className='text-justify'>
           Die Methode der Sentiment Analyse, direkt übersetzt zu Stimmungserkennung, beschreibt die
-          automatische Analyse von Texten um in einer Aussage eine positive oder negative Stimmung
+          automatische Analyse von Texten, um in einer Aussage eine positive oder negative Stimmung
           zu erkennen. Diese Zuordnung von Positiv und Negativ basiert auf vorher markierten
           Signalwörtern. Worte wie “kompetent” oder “freundlich” werden zum Beispiel mit positiven
           Meinungen assoziiert. Positiven Wörtern wird ein Wert zwischen 0 und 1 zugeordnet und
-          negativen Wörtern ein Wert von 0 bis -1. Die Werte werden summiert um ganze Sätze oder
-          Paragraphen zu bewerten. Durch dieses Verfahren wurden die Aussagen der Abgeordneten
-          untersucht und somit die Stimmung der Parteien und der Personen untereinander ermittelt.
+          negativen Wörtern ein Wert zwischen 0 bis -1. Die Werte werden summiert um ganze Sätze oder
+          Paragraphen zu bewerten. Mit diesem Verfahren wurden die Aussagen der Abgeordneten
+          untersucht um somit die Stimmungen der Parteien und der Personen untereinander zu ermitteln.
         </p>
         <br />
         <p className='text-justify'>
@@ -165,7 +165,7 @@ const Factions: React.FC<FactionsProps> = () => {
   const renderSentimentFromText = (): React.ReactNode => {
     return (
       <div className='text-justify'>
-        Stimmungsbild der von der SPD ausgehenden Kommentare an andere Parteien.
+        Stimmungsbild der von der {selectedFaction ? selectedFaction.name : <Skeleton.Button active />} ausgehenden Kommentare an andere Parteien.
       </div>
     );
   };
@@ -228,7 +228,7 @@ const Factions: React.FC<FactionsProps> = () => {
           <Skeleton />
         )}
         <Button variant='primary' size='lg' block onClick={() => redirectTo('persons')}>
-          Weiter zu den Analysen der Interaktionen von Parteien
+          Weiter zu den Analysen der Interaktionen der Abgeordneten
         </Button>
         <Button variant='secondary' size='lg' block onClick={() => redirectTo('/')}>
           Zurück zur Startseite
